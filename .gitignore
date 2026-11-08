@@ -1,0 +1,15 @@
+node_modules/
+dist/
+*.tsbuildinfo
+__pycache__/
+*.pyc
+vite.config.js
+vite.config.d.ts
+.env
+.env.*
+data/alert-state.json
+*-preview.png
+mobile-preview*.png
+desktop-preview*.png
+.DS_Store
+Thumbs.db

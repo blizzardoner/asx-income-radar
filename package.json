@@ -1,0 +1,30 @@
+{
+  "name": "asx-income-radar",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": ">=5.0.4 <6",
+    "lucide-react": ">=0.468.0 <1",
+    "react": ">=19.1.0 <20",
+    "react-dom": ">=19.1.0 <20",
+    "vite": ">=7.1.7 <8"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": ">=6.6.3 <7",
+    "@testing-library/react": ">=16.1.0 <17",
+    "@types/node": ">=22.10.2 <23",
+    "@types/react": ">=19.0.3 <20",
+    "@types/react-dom": ">=19.0.2 <20",
+    "jsdom": ">=25.0.1 <26",
+    "typescript": ">=5.7.2 <6",
+    "vitest": ">=5.1.0 <6"
+  }
+}

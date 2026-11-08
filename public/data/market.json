@@ -1,0 +1,256 @@
+{
+  "updatedAt": "2026-11-08T12:37:14.012693+00:00",
+  "stocks": {
+    "CBA.AX": {
+      "price": 167.51,
+      "currency": "AUD",
+      "marketDate": "2026-11-06",
+      "dataAgeDays": 2,
+      "high52w": 185.58999633789062,
+      "low52w": 146.97999572753906,
+      "firstClose52w": 174.9199981689453,
+      "trailingCashDps": 5.05
+    },
+    "NAB.AX": {
+      "price": 40.0,
+      "currency": "AUD",
+      "marketDate": "2026-11-06",
+      "dataAgeDays": 2,
+      "high52w": 49.45000076293945,
+      "low52w": 35.47999954223633,
+      "firstClose52w": 43.27000045776367,
+      "trailingCashDps": 1.7
+    },
+    "WBC.AX": {
+      "price": 37.03,
+      "currency": "AUD",
+      "marketDate": "2026-11-06",
+      "dataAgeDays": 2,
+      "high52w": 43.31999969482422,
+      "low52w": 33.459999084472656,
+      "firstClose52w": 39.52000045776367,
+      "trailingCashDps": 2.31
+    },
+    "ANZ.AX": {
+      "price": 40.34,
+      "currency": "AUD",
+      "marketDate": "2026-11-06",
+      "dataAgeDays": 2,
+      "high52w": 41.33000183105469,
+      "low52w": 33.36000061035156,
+      "firstClose52w": 37.97999954223633,
+      "trailingCashDps": 1.66
+    },
+    "MQG.AX": {
+      "price": 248.86,
+      "currency": "AUD",
+      "marketDate": "2026-11-06",
+      "dataAgeDays": 2,
+      "high52w": 267.9049987792969,
+      "low52w": 187.30999755859375,
+      "firstClose52w": 205.97000122070312,
+      "trailingCashDps": 7.0
+    },
+    "SUN.AX": {
+      "price": 20.29,
+      "currency": "AUD",
+      "marketDate": "2026-11-06",
+      "dataAgeDays": 2,
+      "high52w": 20.520000457763672,
+      "low52w": 13.800000190734863,
+      "firstClose52w": 19.56999969482422,
+      "trailingCashDps": 0.79
+    },
+    "QBE.AX": {
+      "price": 26.75,
+      "currency": "AUD",
+      "marketDate": "2026-11-06",
+      "dataAgeDays": 2,
+      "high52w": 26.75,
+      "low52w": 18.56999969482422,
+      "firstClose52w": 20.15999984741211,
+      "trailingCashDps": 1.11
+    },
+    "IAG.AX": {
+      "price": 8.91,
+      "currency": "AUD",
+      "marketDate": "2026-11-06",
+      "dataAgeDays": 2,
+      "high52w": 9.0,
+      "low52w": 6.389999866485596,
+      "firstClose52w": 7.929999828338623,
+      "trailingCashDps": 0.32
+    },
+    "TLS.AX": {
+      "price": 5.1,
+      "currency": "AUD",
+      "marketDate": "2026-11-06",
+      "dataAgeDays": 2,
+      "high52w": 5.579999923706055,
+      "low52w": 4.559999942779541,
+      "firstClose52w": 5.03000020980835,
+      "trailingCashDps": 0.21
+    },
+    "TPG.AX": {
+      "price": 4.1,
+      "currency": "AUD",
+      "marketDate": "2026-11-06",
+      "dataAgeDays": 2,
+      "high52w": 5.849999904632568,
+      "low52w": 3.4700000286102295,
+      "firstClose52w": 5.630000114440918,
+      "trailingCashDps": 0.19
+    },
+    "APA.AX": {
+      "price": 11.24,
+      "currency": "AUD",
+      "marketDate": "2026-11-06",
+      "dataAgeDays": 2,
+      "high52w": 11.619999885559082,
+      "low52w": 8.444999694824219,
+      "firstClose52w": 9.350000381469727,
+      "trailingCashDps": 0.58
+    },
+    "TCL.AX": {
+      "price": 14.6,
+      "currency": "AUD",
+      "marketDate": "2026-11-06",
+      "dataAgeDays": 2,
+      "high52w": 15.619999885559082,
+      "low52w": 12.819999694824219,
+      "firstClose52w": 15.010000228881836,
+      "trailingCashDps": 0.69
+    },
+    "SCG.AX": {
+      "price": 3.61,
+      "currency": "AUD",
+      "marketDate": "2026-11-06",
+      "dataAgeDays": 2,
+      "high52w": 4.269999980926514,
+      "low52w": 3.2750000953674316,
+      "firstClose52w": 4.139999866485596,
+      "trailingCashDps": 0.1812
+    },
+    "VCX.AX": {
+      "price": 2.47,
+      "currency": "AUD",
+      "marketDate": "2026-11-06",
+      "dataAgeDays": 2,
+      "high52w": 2.7300000190734863,
+      "low52w": 2.2100000381469727,
+      "firstClose52w": 2.5799999237060547,
+      "trailingCashDps": 0.124
+    },
+    "GPT.AX": {
+      "price": 5.18,
+      "currency": "AUD",
+      "marketDate": "2026-11-06",
+      "dataAgeDays": 2,
+      "high52w": 5.75,
+      "low52w": 4.349999904632568,
+      "firstClose52w": 5.619999885559082,
+      "trailingCashDps": 0.2425
+    },
+    "DXS.AX": {
+      "price": 6.03,
+      "currency": "AUD",
+      "marketDate": "2026-11-06",
+      "dataAgeDays": 2,
+      "high52w": 7.480000019073486,
+      "low52w": 5.300000190734863,
+      "firstClose52w": 7.25,
+      "trailingCashDps": 0.37
+    },
+    "BHP.AX": {
+      "price": 57.62,
+      "currency": "AUD",
+      "marketDate": "2026-11-06",
+      "dataAgeDays": 2,
+      "high52w": 68.7699966430664,
+      "low52w": 40.17499923706055,
+      "firstClose52w": 42.650001525878906,
+      "trailingCashDps": 2.418356
+    },
+    "RIO.AX": {
+      "price": 149.93,
+      "currency": "AUD",
+      "marketDate": "2026-11-06",
+      "dataAgeDays": 2,
+      "high52w": 195.83999633789062,
+      "low52w": 127.30999755859375,
+      "firstClose52w": 129.7899932861328,
+      "trailingCashDps": 6.634893
+    },
+    "FMG.AX": {
+      "price": 15.18,
+      "currency": "AUD",
+      "marketDate": "2026-11-06",
+      "dataAgeDays": 2,
+      "high52w": 23.3799991607666,
+      "low52w": 14.0600004196167,
+      "firstClose52w": 19.93000030517578,
+      "trailingCashDps": 1.08
+    },
+    "WDS.AX": {
+      "price": 30.74,
+      "currency": "AUD",
+      "marketDate": "2026-11-06",
+      "dataAgeDays": 2,
+      "high52w": 35.81999969482422,
+      "low52w": 22.25,
+      "firstClose52w": 26.139999389648438,
+      "trailingCashDps": 1.630004
+    },
+    "AFI.AX": {
+      "price": 6.92,
+      "currency": "AUD",
+      "marketDate": "2026-11-06",
+      "dataAgeDays": 2,
+      "high52w": 7.400000095367432,
+      "low52w": 6.329999923706055,
+      "firstClose52w": 7.369999885559082,
+      "trailingCashDps": 0.4075
+    },
+    "ARG.AX": {
+      "price": 9.52,
+      "currency": "AUD",
+      "marketDate": "2026-11-06",
+      "dataAgeDays": 2,
+      "high52w": 9.569999694824219,
+      "low52w": 8.449999809265137,
+      "firstClose52w": 9.210000038146973,
+      "trailingCashDps": 0.385
+    },
+    "AGL.AX": {
+      "price": 9.04,
+      "currency": "AUD",
+      "marketDate": "2026-11-06",
+      "dataAgeDays": 2,
+      "high52w": 10.630000114440918,
+      "low52w": 7.940000057220459,
+      "firstClose52w": 9.0600004196167,
+      "trailingCashDps": 0.5
+    },
+    "ORG.AX": {
+      "price": 12.12,
+      "currency": "AUD",
+      "marketDate": "2026-11-06",
+      "dataAgeDays": 2,
+      "high52w": 12.84000015258789,
+      "low52w": 10.020000457763672,
+      "firstClose52w": 11.949999809265137,
+      "trailingCashDps": 0.6
+    },
+    "COL.AX": {
+      "price": 22.6,
+      "currency": "AUD",
+      "marketDate": "2026-11-06",
+      "dataAgeDays": 2,
+      "high52w": 24.75,
+      "low52w": 20.100000381469727,
+      "firstClose52w": 22.280000686645508,
+      "trailingCashDps": 0.78
+    }
+  },
+  "failures": []
+}
