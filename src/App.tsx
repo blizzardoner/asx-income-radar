@@ -14,11 +14,15 @@ export interface UniverseStock {
   stabilityFactor: number
   payoutCoverage: number
   sustainableDpsOverride?: number
+  dividendSource?: string
   risk: string
 }
 
 export interface MarketStock {
   price: number
+  previousClose?: number | null
+  dailyChange?: number | null
+  dailyChangePercent?: number | null
   currency: string
   marketDate: string
   dataAgeDays: number
@@ -26,6 +30,7 @@ export interface MarketStock {
   low52w: number | null
   firstClose52w: number | null
   trailingCashDps: number
+  annualOrdinaryCashDps?: number
 }
 
 export interface MarketData {
@@ -56,7 +61,8 @@ export default function App({ initialUniverse, initialMarketData }: AppProps) {
   const allRows = initialUniverse.flatMap((stock) => {
     const market = initialMarketData.stocks[stock.ticker]
     if (!market) return []
-    const sustainableDps = stock.sustainableDpsOverride ?? market.trailingCashDps * stock.stabilityFactor
+    const ordinaryDps = market.annualOrdinaryCashDps ?? market.trailingCashDps
+    const sustainableDps = stock.sustainableDpsOverride ?? ordinaryDps * stock.stabilityFactor
     const evaluation = evaluateStock({
       price: market.price,
       sustainableDps,
@@ -67,7 +73,7 @@ export default function App({ initialUniverse, initialMarketData }: AppProps) {
     })
     const grossYield = grossedUpYield(evaluation.cashYield, stock.frankingFraction)
     const netYield = afterTaxYield(evaluation.cashYield, stock.frankingFraction, marginalTaxRate)
-    const oneYearReturn = market.firstClose52w ? market.price / market.firstClose52w - 1 : 0
+    const oneYearReturn = market.firstClose52w ? market.price / market.firstClose52w - 1 : null
     const rangePosition = market.high52w && market.low52w && market.high52w > market.low52w
       ? (market.price - market.low52w) / (market.high52w - market.low52w)
       : 0.5
@@ -133,16 +139,22 @@ export default function App({ initialUniverse, initialMarketData }: AppProps) {
                   <div className="ticker">{stock.ticker.replace('.AX', '')}</div>
                   <div><h3>{stock.name}</h3><span>{stock.sector} · 质量 {stock.quality}</span></div>
                 </div>
-                <div className="price-block"><strong>{money(market.price)}</strong><span className={oneYearReturn >= 0 ? 'positive' : 'negative'}>{oneYearReturn >= 0 ? <ArrowUpRight size={14} /> : <ArrowDownRight size={14} />}{percent(oneYearReturn)}</span></div>
+                <div className="price-block"><strong>{money(market.price)}</strong><span className={market.dailyChangePercent == null ? '' : market.dailyChangePercent >= 0 ? 'positive' : 'negative'}>{market.dailyChangePercent == null ? '当日 —' : `当日 ${market.dailyChangePercent >= 0 ? '+' : ''}${percent(market.dailyChangePercent)}`}</span></div>
                 <div className="yield-block"><strong>{percent(evaluation.cashYield)}</strong><span>可持续现金收益率</span></div>
                 <div className="buy-block"><strong>{money(evaluation.buyPrice)}</strong><span>硬买入价</span></div>
                 <div className={`status-pill status-${evaluation.status.toLowerCase()}`}><b>{statusLabels[evaluation.status]}</b><span>{evaluation.score}分</span></div>
               </summary>
               <div className="detail-grid">
-                <div className="metric"><span>过去12个月现金DPS</span><strong>{money(market.trailingCashDps)}</strong></div>
+                <div className="metric"><span>现价</span><strong>{money(market.price)}</strong></div>
+                <div className="metric"><span>可持续现金收益率</span><strong>{percent(evaluation.cashYield)}</strong></div>
+                <div className="metric"><span>当日价格变化</span><strong>{market.dailyChangePercent == null ? '—' : `${market.dailyChangePercent >= 0 ? '+' : ''}${percent(market.dailyChangePercent)}`}</strong></div>
+                <div className="metric"><span>近52周价格变化</span><strong>{oneYearReturn == null ? '—' : percent(oneYearReturn)}</strong></div>
+                <div className="metric"><span>过去12个月现金分派（含特别）</span><strong>{money(market.trailingCashDps)}</strong></div>
                 <div className="metric"><span>模型可持续DPS</span><strong>{money(sustainableDps)}</strong></div>
                 <div className="metric"><span>Franking调整毛收益率</span><strong>{percent(grossYield)}</strong></div>
                 <div className="metric"><span>47%税率税后收益估算</span><strong>{percent(netYield)}</strong></div>
+                <div className="metric"><span>现金收益率计算</span><strong>{money(sustainableDps)} ÷ {money(market.price)}</strong></div>
+                {stock.dividendSource && <div className="metric"><span>普通／特别股息依据</span><a href={stock.dividendSource} target="_blank" rel="noreferrer">公司披露</a></div>}
                 <div className="range"><div><span>52周低 {market.low52w ? money(market.low52w) : '—'}</span><span>52周高 {market.high52w ? money(market.high52w) : '—'}</span></div><i><b style={{ width: `${Math.min(100, Math.max(0, rangePosition * 100))}%` }} /></i></div>
                 <div className="risk"><AlertTriangle size={17} /><div><span>首要风险</span><p>{stock.risk}</p></div></div>
               </div>
@@ -151,7 +163,8 @@ export default function App({ initialUniverse, initialMarketData }: AppProps) {
         </section>
 
         <footer>
-          <p>价格与股息事件来自Yahoo Finance图表接口；“可持续DPS”按证券类型进行保守折扣，特殊股息、资本返还、REIT税务构成及最新公司指引仍需在下单前复核。</p>
+          <p>当日涨跌以上一交易日收盘价为基准；近52周价格变化不含股息。现金分派按澳洲除息日统计过去12个日历月，不等于付款日实际到账现金。</p>
+          <p>模型采用最近一个年度普通派息周期（默认最近两笔；季度派息按配置）或明确的普通股息指引，再作稳定性折扣；已知特别股息剔除，现金收益率不含Franking抵税额。价格与股息事件来自Yahoo Finance，新的特别分派、资本返还、REIT税务构成及公司指引仍需复核。</p>
           <p>这是买点初筛工具，不构成个人投资建议。Franking税后收益按澳洲公司税率30%、个人边际税率47%估算。</p>
         </footer>
       </main>

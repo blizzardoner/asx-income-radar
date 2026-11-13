@@ -3,6 +3,8 @@ name: Test, refresh data, and deploy Pages
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
   schedule:
     - cron: '30 6 * * 1-5'
@@ -13,7 +15,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -33,6 +35,7 @@ jobs:
         run: npm ci
 
       - name: Refresh ASX market data
+        if: github.event_name != 'pull_request'
         run: python scripts/update_market_data.py
 
       - name: Run frontend tests
@@ -45,14 +48,17 @@ jobs:
         run: npm run build
 
       - name: Configure GitHub Pages
+        if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
 
       - name: Upload Pages artifact
+        if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist
 
   deploy:
+    if: github.event_name != 'pull_request'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
