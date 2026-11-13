@@ -5,13 +5,35 @@ import urllib.parse
 import urllib.request
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from dividend_basis import resolve_dividend_basis
 
 ROOT = Path(__file__).resolve().parents[1]
 UNIVERSE_PATH = ROOT / "data" / "stock-universe.json"
+DIVIDEND_PATH = ROOT / "data" / "dividend-disclosures.json"
 OUTPUT_PATH = ROOT / "public" / "data" / "market.json"
 
 
-def summarize_chart(payload, now=None, payments_per_year=2, special_dividends=None):
+def previous_anniversary(day):
+    try:
+        return day.replace(year=day.year - 1)
+    except ValueError:
+        return day.replace(year=day.year - 1, day=28)
+
+
+def price_change(price, sessions, target):
+    candidates = [day for day in sessions if day <= target and (target - day).days <= 7]
+    baseline_date = max(candidates) if candidates else None
+    baseline = sessions[baseline_date] if baseline_date else None
+    return {
+        "targetDate": target.isoformat(),
+        "baselineDate": baseline_date.isoformat() if baseline_date else None,
+        "baselinePrice": baseline,
+        "amount": price - baseline if baseline else None,
+        "percent": price / baseline - 1 if baseline else None,
+    }
+
+
+def summarize_chart(payload, now=None, dividend_disclosure=None, fx_rates=None):
     now = now or datetime.now(timezone.utc)
     result = payload["chart"]["result"][0]
     meta = result["meta"]
@@ -55,33 +77,32 @@ def summarize_chart(payload, now=None, payments_per_year=2, special_dividends=No
         if cutoff < datetime.fromtimestamp(event["date"], tz=exchange_tz).date() <= as_of
     ), key=lambda event: event["date"])
     trailing_dps = sum(float(event.get("amount", 0)) for event in trailing_events)
-    special_dividends = special_dividends or {}
-    ordinary_events = []
-    for event in trailing_events:
-        ex_date = datetime.fromtimestamp(event["date"], tz=exchange_tz).date().isoformat()
-        amount = float(event.get("amount", 0)) - special_dividends.get(ex_date, 0)
-        if amount < 0:
-            raise ValueError(f"Special dividend exceeds cash amount on {ex_date}")
-        if amount > 0:
-            ordinary_events.append(amount)
-    annual_dps = sum(ordinary_events[-payments_per_year:])
+    basis = resolve_dividend_basis(dividend_disclosure, as_of, fx_rates)
 
-    previous_close = previous_sessions[max(previous_sessions)] if previous_sessions else None
-    daily_change = price - previous_close if previous_close else None
+    changes = {
+        "day": price_change(price, previous_sessions, market_date - timedelta(days=1)),
+        "week": price_change(price, previous_sessions, market_date - timedelta(days=7)),
+        "year": price_change(price, previous_sessions, previous_anniversary(market_date)),
+    }
+    previous_close = changes["day"]["baselinePrice"]
+    daily_change = changes["day"]["amount"]
 
     return {
         "price": price,
         "previousClose": previous_close,
         "dailyChange": daily_change,
         "dailyChangePercent": daily_change / previous_close if previous_close else None,
+        "priceChanges": changes,
         "currency": meta.get("currency", "AUD"),
+        "exchangeUtcOffset": meta.get("gmtoffset", 0),
         "marketDate": market_date.isoformat(),
         "dataAgeDays": max(0, (now.astimezone(exchange_tz).date() - market_date).days),
         "high52w": max(highs) if highs else None,
         "low52w": min(lows) if lows else None,
         "firstClose52w": closes[0] if closes else None,
         "trailingCashDps": round(trailing_dps, 6),
-        "annualOrdinaryCashDps": round(annual_dps, 6),
+        "annualOrdinaryCashDps": basis["annualDpsAud"],
+        "dividendBasis": basis,
     }
 
 
@@ -97,9 +118,23 @@ def fetch_chart(ticker):
         return json.load(response)
 
 
-def update_market_data():
+def update_market_data(now=None):
     universe = json.loads(UNIVERSE_PATH.read_text(encoding="utf-8"))
-    now = datetime.now(timezone.utc)
+    disclosures = json.loads(DIVIDEND_PATH.read_text(encoding='utf-8'))['records']
+    now = now or datetime.now(timezone.utc)
+    fx_rates = {}
+    if any(r.get('currency') == 'USD' for r in disclosures.values()):
+        try:
+            meta = fetch_chart('AUD=X')['chart']['result'][0]['meta']
+            if meta.get('currency') != 'AUD':
+                raise ValueError('USD/AUD quote currency mismatch')
+            fx_rates['USD/AUD'] = {
+                'rate': float(meta['regularMarketPrice']),
+                'asOf': datetime.fromtimestamp(meta['regularMarketTime'], timezone.utc).date().isoformat(),
+                'source': 'https://finance.yahoo.com/quote/AUD=X/',
+            }
+        except Exception:
+            pass  # Foreign-currency income is explicitly missing_fx, never guessed.
     stocks = {}
     failures = []
     for stock in universe:
@@ -107,8 +142,7 @@ def update_market_data():
         try:
             stocks[ticker] = summarize_chart(
                 fetch_chart(ticker), now=now,
-                payments_per_year=stock.get("paymentsPerYear", 2),
-                special_dividends=stock.get("specialDividends", {}),
+                dividend_disclosure=disclosures.get(ticker), fx_rates=fx_rates,
             )
         except Exception as exc:
             failures.append({"ticker": ticker, "error": str(exc)})

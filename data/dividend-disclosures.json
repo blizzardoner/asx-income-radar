@@ -1,0 +1,685 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-11-14",
+  "records": {
+    "CBA.AX": {
+      "kind": "reported",
+      "periodEnd": "2026-06-30",
+      "announcedOn": "2026-08-12",
+      "dps": 5.05,
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY26 interim ordinary",
+          "amount": 2.35
+        },
+        {
+          "label": "FY26 final ordinary",
+          "amount": 2.7
+        }
+      ],
+      "validUntil": "2027-09-16",
+      "sources": [
+        "https://www.commbank.com.au/content/dam/commbank-assets/investors/2026/CBA-2026-Full-Year-Results-Profit-Announcement.pdf",
+        "https://www.commbank.com.au/about-us/investors/dividend-information.html"
+      ],
+      "evidence": "Official FY26 profit announcement: 'For the full year ended 30 June 2026'; 'Full year results announcement 12 August 2026'; 'The final dividend was $2.70 per share, delivering a total FY26 dividend per share of $5.05, fully franked.' Appendix 4E: 'Final dividend - fully franked (cents per share) 270'; 'Interim dividend - fully franked (cents per share) 235'.",
+      "notes": "Annual ordinary cash DPS, not franking-credit-inclusive yield and not a trailing ex-date aggregation.",
+      "reviewedOn": "2026-11-14",
+      "sourceSha256": "438d5975baadf9577bfb2c397f07de13e995da774f382be6d9a217b3f53a9e99"
+    },
+    "NAB.AX": {
+      "kind": "reported",
+      "periodEnd": "2026-09-30",
+      "announcedOn": "2026-11-05",
+      "dps": 1.7,
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY26 interim ordinary",
+          "amount": 0.85
+        },
+        {
+          "label": "FY26 final ordinary",
+          "amount": 0.85
+        }
+      ],
+      "validUntil": "2027-12-10",
+      "sources": [
+        "https://www.nab.com.au/content/dam/nab/documents/reports/corporate/2026-full-year-results-summary.pdf",
+        "https://www.nab.com.au/about-us/shareholder-centre/dividend-information/payment-history",
+        "https://www.nab.com.au/about-us/shareholder-centre/financial-disclosures-and-reporting/financial-results"
+      ],
+      "evidence": "Official summary cover: 'Full Year Results Summary 2026 5 November 2026'. Shareholder summary (PDF printed page 7): 'Year to ... Sep 26 ... Half Year to ... Sep 26 ... Mar 26'; 'Dividend per share (cents) 170 170 - 85 85 -'. Narrative: 'total dividends for the year of 170 cps'. Official dividend history labels both 2026 Final dividend and 2026 Interim dividend as 'Dividend rate per share (AUD) 85 cents'.",
+      "notes": "FY26 final dividend announced but payable 15 December 2026; inclusion is by reported financial-year attribution, not payment date.",
+      "reviewedOn": "2026-11-14",
+      "sourceSha256": "851b5e7bb3aac78b81ac48425afcfdbb4d5f9970ba14f0ccb1c06df3a968ba46"
+    },
+    "WBC.AX": {
+      "kind": "reported",
+      "periodEnd": "2026-09-30",
+      "announcedOn": "2026-11-02",
+      "dps": 1.54,
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY26 interim ordinary",
+          "amount": 0.77
+        },
+        {
+          "label": "FY26 final ordinary",
+          "amount": 0.77
+        }
+      ],
+      "validUntil": "2027-12-07",
+      "sources": [
+        "https://www.westpac.com.au/content/dam/public/wbc/documents/pdf/aw/ic/wbc-full-year-financial-results-2026.pdf",
+        "https://www.westpac.com.au/about-westpac/investor-centre/dividend-information/"
+      ],
+      "evidence": "Official results: 'performance for the 12 months and six months ended 30 September 2026'; 'ASX ANNOUNCEMENT FY26 RESULT 2 NOVEMBER 2026'. Dividends table (PDF page 33, printed page 27), FY Sept 2026 column: 'Ordinary dividend - Interim (cents per share) 77'; 'Ordinary dividend - Final (cents per share) 77'; 'Total ordinary dividend (cents per share) 154'. Official dividend page: '2026 final ordinary dividend was announced on 2 November 2026'.",
+      "notes": "Excludes any special dividends and NZ imputation credits. Final is payable 21 December 2026.",
+      "reviewedOn": "2026-11-14",
+      "sourceSha256": "6f5dbe4e05a316bb5f75e1c69951c42f85b00b6010a78a6e35f20df2902297c7"
+    },
+    "ANZ.AX": {
+      "kind": "reported",
+      "periodEnd": "2026-09-30",
+      "announcedOn": "2026-11-09",
+      "dps": 1.66,
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY26 interim ordinary",
+          "amount": 0.83
+        },
+        {
+          "label": "FY26 proposed final ordinary",
+          "amount": 0.83
+        }
+      ],
+      "validUntil": "2027-12-14",
+      "sources": [
+        "https://www.anz.com.au/newsroom/media/2026/november/2026-full-year-result---proposed-final-dividend/",
+        "https://www.anz.com/content/dam/anzcom/shareholder/Dividend-Distribution-ANZ-20261109.pdf"
+      ],
+      "evidence": "Official release dated '2026-11-09 00:00': 'full year ended 30 September 2026'; 'We declared a final dividend of 83 cents per share ... The full year dividend is 166 cents per share.' Capital section: 'The Board has declared a 2026 Final Dividend of 83 cents per share ... interim 2026 dividend, also 83 cents per share'. Official Appendix 3A.1: 'Date of this announcement 9/11/2026'; 'Distribution Amount AUD 0.83000000'; 'Ordinary Dividend/distribution amount per security AUD 0.83000000'.",
+      "notes": "Preserves official release's proposed-final wording. Final payable 18 December 2026. NZ imputation credits excluded.",
+      "reviewedOn": "2026-11-14",
+      "sourceSha256": "87e69dc1faa698de8d8bb91533e0c598550ec2ee0cf5dfaa30a0cae2f54fb75f"
+    },
+    "MQG.AX": {
+      "kind": "reported",
+      "periodEnd": "2026-03-31",
+      "announcedOn": "2026-05-08",
+      "dps": 7.0,
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY26 interim ordinary",
+          "amount": 2.8
+        },
+        {
+          "label": "FY26 final ordinary",
+          "amount": 4.2
+        }
+      ],
+      "validUntil": "2027-06-12",
+      "sources": [
+        "https://www.macquarie.com/au/en/about/news/2026/macquarie-group-fy26-result-announcement.html",
+        "https://www.macquarie.com/assets/macq/investor/results-and-presentations/2026/macquarie-group-fy26-agm-presentation.pdf"
+      ],
+      "evidence": "Official release: 'Sydney, 08 May 2026'; 'year ended 31 March 2026 (FY26)'; 'FY26 final ordinary dividend of $A4.20 per share'; 'total FY26 ordinary dividend of $A7.00 per share'. Official AGM presentation PDF page 14 table, columns 2H26 / 1H26 / FY26: 'Dividend per ordinary share $A4.20 $A2.80 ... $A7.00'.",
+      "notes": "Verified FY26 amount is AUD 7.00, not the tentative 7.10. FY27 interim must not be mixed with FY26 final to create an annual basis.",
+      "reviewedOn": "2026-11-14",
+      "sourceSha256": "91235d1767f8d592614c50244d605a29512c3db0ece633d3e56818b1e4e3b33b"
+    },
+    "SUN.AX": {
+      "kind": "reported",
+      "periodEnd": "2026-06-30",
+      "announcedOn": "2026-08-12",
+      "dps": 0.69,
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY26 interim ordinary",
+          "amount": 0.17
+        },
+        {
+          "label": "FY26 final ordinary",
+          "amount": 0.52
+        }
+      ],
+      "validUntil": "2027-09-16",
+      "sources": [
+        "https://delivery-p139617-e1446342.adobeaemcloud.com/adobe/assets/urn:aaid:aem:861dd99c-f57f-424f-85ef-02ada4220fbf/renditions/original/as/fy26-annual-report.pdf?assetname=fy26-annual-report.pdf",
+        "https://www.suncorpgroup.com.au/assets/documents/suncorpgroup/fy26-annual-report.pdf",
+        "https://www.suncorpgroup.com.au/investors/events/full-year-results-to-30-june-2026",
+        "https://www.suncorpgroup.com.au/assets/documents/suncorpgroup/announcements/2345525.pdf"
+      ],
+      "evidence": "FY26 Annual Report page 6: 'final ordinary dividend of 52 cents per share, bringing the total fully franked ordinary dividends for FY26 to 69 cents per share'; separately 'a fully franked special dividend of 10 cents per share'. Chairman's message dated '12 August 2026'. Page 76: 'A fully franked FY26 interim ordinary dividend ... (17 cents per share)'; 'FY26 final ordinary dividend ... (52 cents per share)' and separate 'special dividend ... (10 cents per share)'. Official results event identifies 'Full year results to 30 June 2026' and FY26 announcements dated '2026-08-12T00:00:00'.",
+      "notes": "AUD 0.69 ordinary only, not AUD 0.79 inclusive of special.",
+      "reviewedOn": "2026-11-14",
+      "sourceSha256": "96d90669e459e5cec6e00cb66eeef17456bb66083d8d518ba215ca67443a5e2e"
+    },
+    "QBE.AX": {
+      "kind": "reported",
+      "periodEnd": "2025-12-31",
+      "announcedOn": "2026-02-20",
+      "dps": 1.09,
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY25 interim ordinary",
+          "amount": 0.31
+        },
+        {
+          "label": "FY25 final ordinary",
+          "amount": 0.78
+        }
+      ],
+      "validUntil": "2027-03-27",
+      "sources": [
+        "https://www.qbe.com/media/qbe/group/document-listing/2026/02/19/20/46/asx-announcement---2025-full-year-results-and-appendix-4e---for-asx(11279481).pdf",
+        "https://www.qbe.com/investor-relations/reports-presentations/annual-results"
+      ],
+      "evidence": "Official PDF cover dated '20 February 2026': 'financial results for the year ended 31 December 2025'. PDF page 17: 'The Board declared a final dividend for 2025 of 78 Australian cents per share, which results in a full year dividend of 109 Australian cents per share'. Appendix 4E indexed table: 'AMOUNT PER SECURITY (AUSTRALIAN CENTS) ... Interim dividend 31 ... Final dividend 78'.",
+      "notes": "Latest complete financial year is FY25 (calendar year); FY26 has not ended as of 2026-11-14. QBE reports earnings in USD but this dividend is explicitly Australian cents.",
+      "reviewedOn": "2026-11-14",
+      "sourceSha256": "e7a4b4ba3bc215f2ad54da6f6bd441afa7b0ab48e1bb73e5e8e45ed84d44d81b"
+    },
+    "IAG.AX": {
+      "kind": "reported",
+      "periodEnd": "2026-06-30",
+      "announcedOn": "2026-08-13",
+      "dps": 0.32,
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY26 interim ordinary",
+          "amount": 0.12
+        },
+        {
+          "label": "FY26 final ordinary",
+          "amount": 0.2
+        }
+      ],
+      "validUntil": "2027-09-17",
+      "sources": [
+        "https://www.iag.com.au/content/dam/corporate-iag/iag-aus/au/en/documents/report-and-results/iagl-appendix-4e-fy26-annual-report.pdf",
+        "https://www.iag.com.au/newsroom/company/iag-full-year-results-2026"
+      ],
+      "evidence": "Official Appendix 4E PDF page 1: 'Preliminary final report for the year ended 30 June 2026'; 'Dividends – ordinary shares ... 2026 Final dividend 20.0 cents ... 2026 Interim dividend 12.0 cents'. Page 8: 'This brings the full year dividend to 32.0 cents per share'. PDF page 202 financial calendar: '2026 financial year-end 30 June 2026'; 'Full year results and final dividend announcement 13 August 2026'.",
+      "notes": "Franking credits are excluded from cash DPS.",
+      "reviewedOn": "2026-11-14",
+      "sourceSha256": "77bc7b540a4159f624d47c81a1c57cee6804081998de225b7a62097f38fa70fe"
+    },
+    "TLS.AX": {
+      "kind": "reported",
+      "periodEnd": "2026-06-30",
+      "announcedOn": "2026-08-13",
+      "dps": 0.21,
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY26 interim ordinary",
+          "amount": 0.105
+        },
+        {
+          "label": "FY26 final ordinary",
+          "amount": 0.105
+        }
+      ],
+      "validUntil": "2027-09-17",
+      "sources": [
+        "https://www.telstra.com.au/content/dam/tcom/about-us/investors/pdf-i/telstra-financial-results-and-annual-report-for-the-year-ended-30-jun-2026.pdf",
+        "https://www.telstra.com.au/aboutus/investors/dividends"
+      ],
+      "evidence": "Official FY26 annual report PDF page 43: 'On 19 February 2026, the Directors resolved to pay ... interim dividend for the financial year 2026 of 10.5 cents per ordinary share'; 'On 13 August 2026, the Directors resolved to pay ... final dividend for the financial year 2026 of 10.5 cents per ordinary share'; 'This brings the total dividend for the financial year 2026 to 21 cents per share, with a franked amount of 19 cents per share and an unfranked amount of 2 cents per share'. Report covers year ended 30 June 2026.",
+      "notes": "Unfranked ordinary cash portion remains included: AUD 0.21, not AUD 0.19. Do not treat the unfranked portion as a special dividend.",
+      "reviewedOn": "2026-11-14",
+      "sourceSha256": "e812e2b43f8649e18d2b127a04b7770cc79c1f27c6a011408d0f57b324cfa614"
+    },
+    "TPG.AX": {
+      "kind": "reported",
+      "periodEnd": "2025-12-31",
+      "announcedOn": "2026-02-27",
+      "dps": 0.18,
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY25 interim ordinary dividend",
+          "amount": 0.09
+        },
+        {
+          "label": "FY25 final ordinary dividend",
+          "amount": 0.09
+        }
+      ],
+      "validUntil": "2027-04-03",
+      "sources": [
+        "https://announcements.asx.com.au/asxpdf/20260227/pdf/06wv74pm9z2zb1.pdf",
+        "https://www.tpgtelecom.com.au/investor-relations/dividends"
+      ],
+      "evidence": "Retrieved official ASX Appendix 4E/2025 Annual Report PDF; cover dated Sydney, 27 February 2026, for full year ended 31 December 2025. Chairman's letter states: 'The Board has declared a final ordinary dividend of 9.0 cents per share for FY25, taking total ordinary dividends for the year to 18.0 cents per share.' Official dividend history separately identifies HY25 Interim $0.09 and FY25 final $0.09. Excludes the November 2025 special dividend of $0.09 and capital reduction of $1.52 per share. HY26 interim $0.10 belongs to a different, incomplete financial year and is not included.",
+      "notes": "",
+      "reviewedOn": "2026-11-14",
+      "sourceSha256": "5059a60f51941bea50584846ea44de63349422f2ead4e2ce5887577053e74d4a"
+    },
+    "APA.AX": {
+      "kind": "reported",
+      "periodEnd": "2026-06-30",
+      "announcedOn": "2026-08-20",
+      "dps": 0.58,
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY26 interim cash distribution",
+          "amount": 0.275
+        },
+        {
+          "label": "FY26 final cash distribution",
+          "amount": 0.305
+        }
+      ],
+      "validUntil": "2027-09-24",
+      "sources": [
+        "https://announcements.asx.com.au/asxpdf/20260820/pdf/072yyd659vhz4t.pdf",
+        "https://www.apa.com.au/news/asx-and-media-releases/interim-distribution-information-for-the-six-months-ended-31-december-2025"
+      ],
+      "evidence": "Retrieved official FY26 results PDF dated 20 August 2026, reporting the year ended 30 June 2026. 'The Board of Directors has resolved to pay a final distribution for FY26 of 30.5 cps bringing total distributions ... for the year to 58.0 cps.' Retrieved official interim distribution information, published 19 February 2026, for six months ended 31 December 2025: 'Total Distribution Rate: 27.5 cents per security'. This is recurring annual stapled-security cash distribution, not solely ordinary corporate profit dividends. The final distribution includes trust profit and capital distributions (9.6, 15.3, 0.9 and 4.7 cps respectively); the interim tax statement includes tax-deferred amounts. Those ordinary trust distribution tax/accounting components are retained and are not automatically treated as an exceptional capital return. No separate special/one-off distribution is included.",
+      "notes": "",
+      "reviewedOn": "2026-11-14",
+      "sourceSha256": "5caf867c55119af5a42c46fb5bd331311ed3b311a1bf199d85e427f7aebe6772"
+    },
+    "TCL.AX": {
+      "kind": "reported",
+      "periodEnd": "2026-06-30",
+      "announcedOn": "2026-08-13",
+      "dps": 0.69,
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY26 interim cash distribution",
+          "amount": 0.34
+        },
+        {
+          "label": "FY26 final cash distribution",
+          "amount": 0.35
+        }
+      ],
+      "validUntil": "2027-09-17",
+      "sources": [
+        "https://www.transurban.com/content/dam/investor-centre/01/FY26-Appendix4E.pdf"
+      ],
+      "evidence": "Retrieved official Appendix 4E and FY26 Corporate Report, ASX release dated 13 August 2026, for year ended 30 June 2026. Appendix 4E 'Distributions and dividends' lists final 35.0 cents (record date 30 June 2026) and interim 34.0 cents (record date 31 December 2025). Corporate Report states: 'Our full-year distribution increased 6.2% to 69.0 cents per stapled security (cps)' and describes final distribution from Transurban Holding Trust. This is annual stapled-security cash distribution, not solely ordinary corporate profit dividends; do not strip routine trust tax-deferred components as one-off capital returns. announcedOn is publication of the complete FY26 results, not the earlier final-distribution declaration date (24 June 2026). No separate special distribution is included.",
+      "notes": "",
+      "reviewedOn": "2026-11-14",
+      "sourceSha256": "0f98c3c8793936bf471125d69d35835a039106490dd66a3830d6bd741b64b785"
+    },
+    "SCG.AX": {
+      "kind": "reported",
+      "periodEnd": "2025-12-31",
+      "announcedOn": "2026-02-24",
+      "dps": 0.1772,
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY25 reported full-year cash distributions (annual aggregate)",
+          "amount": 0.1772
+        }
+      ],
+      "validUntil": "2027-03-31",
+      "sources": [
+        "https://announcements.asx.com.au/asxpdf/20260224/pdf/06wng9ld31xkp4.pdf"
+      ],
+      "evidence": "Retrieved official Scentre Group ASX full-year announcement and presentation, dated 24 February 2026. Opening paragraph: 'Scentre Group (ASX: SCG) today released its results for the 12 months to 31 December 2025 ... Distributions for the period are $923 million (17.72 cents per security), up 3.4%.' Presentation repeats full-year distributions $923m (17.72 cents per security). Uses the directly reported annual cash distribution, not an inferred payment count or a rolling window containing HY26. This is REIT/stapled-security cash distribution, not solely ordinary corporate profit dividends. Routine tax-deferred trust components are not automatically classified as exceptional capital returns. No separately identified special distribution is included; unverified interim/final split is intentionally not invented.",
+      "notes": "",
+      "reviewedOn": "2026-11-14",
+      "sourceSha256": "8955ec305d24ab3533c51e6d886487a11ba9f02b23f52f894bb4b2414307ad82"
+    },
+    "VCX.AX": {
+      "kind": "reported",
+      "periodEnd": "2026-06-30",
+      "announcedOn": "2026-08-20",
+      "dps": 0.124,
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY26 interim cash distribution",
+          "amount": 0.062
+        },
+        {
+          "label": "FY26 final cash distribution",
+          "amount": 0.062
+        }
+      ],
+      "validUntil": "2027-09-24",
+      "sources": [
+        "https://announcements.asx.com.au/asxpdf/20260820/pdf/072zfqqvz6v346.pdf"
+      ],
+      "evidence": "Retrieved official Vicinity Centres ASX announcement dated 20 August 2026, covering the 12 months ended 30 June 2026. Financial highlights state: 'Final distribution per security of 6.20 cents (1H FY26: 6.20 cents), bringing FY26 distribution per security to 12.4 cents, representing a payout ratio of 95.5% of Adjusted FFO'. Body confirms a full-year distribution of 12.40 cents. This is annual REIT/stapled-security cash distribution, not solely ordinary corporate profit dividends. Routine trust tax-deferred components are retained rather than automatically treated as exceptional capital returns; no separately identified special distribution is included.",
+      "notes": "",
+      "reviewedOn": "2026-11-14",
+      "sourceSha256": "b58183b90d69763417917ef57d8c6bab10f77781fa81aebc4a54ccd7dd058a8c"
+    },
+    "GPT.AX": {
+      "kind": "reported",
+      "periodEnd": "2025-12-31",
+      "announcedOn": "2026-02-16",
+      "dps": 0.24,
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY25 first-half cash distribution",
+          "amount": 0.12
+        },
+        {
+          "label": "FY25 second-half cash distribution",
+          "amount": 0.12
+        }
+      ],
+      "validUntil": "2027-03-23",
+      "sources": [
+        "https://announcements.asx.com.au/asxpdf/20260216/pdf/06wb8dhtc3rdsk.pdf",
+        "https://www.gpt.com.au/sites/default/files/inline-uploads/Appendix%204E%20%5BGPT%5D%20-%202025%20Annual%20Result.pdf"
+      ],
+      "evidence": "Retrieved official GPT annual-results announcement dated 16 February 2026, for the 12 months to 31 December 2025: 'Adjusted funds from operations of $494.4 million and a full year distribution of 24.0 cents per security'. Retrieved issuer-hosted Appendix 4E, also dated 16 February 2026: section 7 lists 6 months ended 30 June 2025 12.00 cents, paid 29 August 2025, and 6 months ended 31 December 2025 12.00 cents, to be paid 27 February 2026. The latter was declared 17 December 2025; announcedOn records publication of complete annual results. FY2026 distribution guidance of 24.5 cents is not substituted for the latest completed year. This is annual REIT/stapled-security cash distribution, not solely ordinary corporate profit dividends; routine tax-deferred components are retained, and no separate special distribution is included.",
+      "notes": "",
+      "reviewedOn": "2026-11-14",
+      "sourceSha256": "c9493b9d3f2f8a5bdcc0a3982d584f2c29c334294fade8fc05f8c674d8a35108"
+    },
+    "DXS.AX": {
+      "kind": "reported",
+      "periodEnd": "2026-06-30",
+      "announcedOn": "2026-08-20",
+      "dps": 0.37,
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY26 interim cash distribution",
+          "amount": 0.193
+        },
+        {
+          "label": "FY26 final cash distribution",
+          "amount": 0.177
+        }
+      ],
+      "validUntil": "2027-09-24",
+      "sources": [
+        "https://announcements.asx.com.au/asxpdf/20260820/pdf/072z59cnjxkn0m.pdf",
+        "https://cdn-api.markitdigital.com/apiman-gateway/ASX/asx-research/1.0/file/2924-03128320-2A1693244"
+      ],
+      "evidence": "Retrieved official Dexus Appendix 4E reporting the year ended 30 June 2026. 2026 column lists distribution per security for periods ending 31 December 19.3 cents, 30 June 17.7 cents, and 'Total distributions' 37.0 cents; payout ratio 82.1% of AFFO. Retrieved Dexus ASX distribution-payment release dated 28 August 2026, via ASX's research document endpoint; shareholder letter explicitly states: 'Dexus released its annual results on 20 August 2026, achieving a distribution of 37.0 cents ... per security for the year to 30 June 2026'. Thus announcedOn is verified annual-results publication date, not payment date. This is annual REIT cash distribution, not solely ordinary corporate profit dividends; routine tax-deferred/AMIT components are retained rather than automatically treated as exceptional capital returns. No separate special distribution is included.",
+      "notes": "",
+      "reviewedOn": "2026-11-14",
+      "sourceSha256": "c4c328c11abdb7ee60f465ccf4534865f6f48d5d70cf6ad85a9fb697db5ae6cd"
+    },
+    "AFI.AX": {
+      "kind": "guidance",
+      "periodEnd": "2027-06-30",
+      "announcedOn": "2026-10-01",
+      "dps": 0.27,
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY27 ordinary quarterly dividend, November 2026 payment",
+          "amount": 0.0675
+        },
+        {
+          "label": "FY27 ordinary quarterly guidance, February 2027 payment",
+          "amount": 0.0675
+        },
+        {
+          "label": "FY27 ordinary quarterly guidance, May 2027 payment",
+          "amount": 0.0675
+        },
+        {
+          "label": "FY27 ordinary quarterly guidance, August 2027 payment",
+          "amount": 0.0675
+        }
+      ],
+      "validUntil": "2027-10-28",
+      "sources": [
+        "https://announcements.asx.com.au/asxpdf/20261001/pdf/074stxwrt91g7j.pdf"
+      ],
+      "evidence": "Retrieved official AFIC electronic ASX/NZX release dated 1 October 2026, 'Dividend Guidance for FY27 and Move to Quarterly Dividends'. States 'Ordinary dividend guidance of 27 cents per share for FY27, fully franked' and separately 'Special dividend of 10 cents per share for FY27'. Board intention is explicitly 'subject to no material unforeseen adverse market conditions and final Board approval'. Proposed schedule directly lists ordinary dividends of 6.75 cents each in November 2026, February 2027, May 2027 and August 2027, total 27.00 cents; special 2.50 cents each, total 10.00 cents, is excluded. These components are the disclosed proposed schedule, not a default quarterly count. First quarterly dividend was determined; remaining quarterly amounts remain guidance, not fully declared or guaranteed annual dividends. FY27 is the issuer's June-ended financial year; the August 2027 payment is the scheduled final FY27 payment and does not change periodEnd.",
+      "notes": "",
+      "reviewedOn": "2026-11-14",
+      "sourceSha256": "412ca82cb13c9b0374f19c1124ea7e1ea666407756b41b704658b4ff9f6ea37d"
+    },
+    "BHP.AX": {
+      "kind": "reported",
+      "periodEnd": "2026-06-30",
+      "announcedOn": "2026-08-18",
+      "dps": 1.72,
+      "currency": "USD",
+      "components": [
+        {
+          "label": "FY26 interim",
+          "amount": 0.73,
+          "currency": "USD",
+          "announcedOn": "2026-02-17",
+          "paymentDate": "2026-03-26"
+        },
+        {
+          "label": "FY26 final",
+          "amount": 0.99,
+          "currency": "USD",
+          "announcedOn": "2026-08-18",
+          "paymentDate": "2026-09-23"
+        }
+      ],
+      "validUntil": "2027-09-22",
+      "sources": [
+        "https://announcements.asx.com.au/asxpdf/20260818/pdf/072vxpfhmy9lfk.pdf"
+      ],
+      "evidence": "Direct ASX Appendix 4E for year ended 30 June 2026, dated 18 August 2026: current-year interim US73 cents and final US99 cents, total US172 cents. Ordinary annual dividends only; converted to AUD with a separately dated live FX quote, not historical cash receipts.",
+      "notes": "Ordinary FY26 interim plus final only. The archived official historical list directly verifies the interim AUD payment of 1.03846887. Official /drp search-index excerpt states final Australian cents 137.988710, but the live page was blocked and the available archived /drp page predates conversion; therefore no AUD total is substituted. USD total is fully report-backed and no FX conversion is guessed.",
+      "reviewedOn": "2026-11-14",
+      "sourceSha256": "8dd0c4678de0805e9b32f293a999870d0ea3c313e08f77a6b6bed3a372d5da4d"
+    },
+    "RIO.AX": {
+      "kind": "reported",
+      "periodEnd": "2025-12-31",
+      "announcedOn": "2026-02-19",
+      "dps": 5.89050799,
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY25 interim",
+          "amount": 2.21972253,
+          "currency": "AUD",
+          "paymentDate": "2025-09-25"
+        },
+        {
+          "label": "FY25 final",
+          "amount": 3.67078546,
+          "currency": "AUD",
+          "paymentDate": "2026-04-16"
+        }
+      ],
+      "validUntil": "2027-03-26",
+      "sources": [
+        "https://www.riotinto.com/invest/shareholder-information/dividends/dividend-history-and-calculator",
+        "https://www.riotinto.com/-/media/content/documents/invest/financial-news-and-performance/results/2025/2025-annual-results.pdf",
+        "https://www.riotinto.com/en/news/releases/2026/rio-tinto-solid-results-underpinned-by-8-cueq-production-and-sharper-cost-discipline"
+      ],
+      "evidence": "Official dividend-history HTML retrieved HTTP 200: 'Year Type Dividend in US dollars (USD) Dividend in Australian Dollar (AUD) Ex-date Payment date 2025 Final 2.5400 3.67078546 5 Mar 2026 16 Apr 2026 2025 Interim 1.4800 2.21972253 14 Aug 2025 25 Sep 2025'. Official annual-results PDF search-index excerpt: '2025 full year results 19 February 2026' and 'Ordinary dividend per share declared 2025 2024 Interim (US cents) 148 177 Final (US cents) 254 225 Full-year (US cents) 402 402'.",
+      "notes": "Sum of actual official AUD payments for FY25 only; USD ordinary total 4.02 is not mixed into AUD. Do not add FY26 interim. Official site intermittently returns HTTP 403; a successful history-page body was read before subsequent requests were blocked.",
+      "reviewedOn": "2026-11-14",
+      "sourceSha256": "cb4ba45e7f41c3fd756bbfb41dbb05037de85f402a3820e993a8c32f09169f05"
+    },
+    "FMG.AX": {
+      "kind": "reported",
+      "periodEnd": "2026-06-30",
+      "announcedOn": "2026-08-20",
+      "dps": 1.08,
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY26 interim",
+          "amount": 0.62,
+          "currency": "AUD"
+        },
+        {
+          "label": "FY26 final",
+          "amount": 0.46,
+          "currency": "AUD",
+          "announcedOn": "2026-08-20",
+          "paymentDate": "2026-09-29"
+        }
+      ],
+      "validUntil": "2027-09-24",
+      "sources": [
+        "https://content.fortescue.com/fortescue17114-fortescueeb60-productionbbdb-8be5/media/project/fortescueportal/shared/documents/regulatory/asx-announcements/automated/03123292-fy26-full-year-results.pdf",
+        "https://content.fortescue.com/fortescue17114-fortescueeb60-productionbbdb-8be5/media/project/fortescueportal/shared/documents/regulatory/transcripts/fmg_fyr_200826_transcript---fortescue.pdf"
+      ],
+      "evidence": "Official FY26 full-year results PDF: 'Fully franked final dividend of A$0.46 per share, increasing total dividends declared in FY26 to A$1.08 per share' and 'Including the interim dividend of A$0.62 per share, the total dividends declared for FY26 are A$1.08 per share, representing a payout ratio of 65 per cent of FY26 Underlying NPAT.' PDF identifies 'the 12 months to 30 June 2026 (FY26)'. Official transcript identifies 20 August 2026 as the results date.",
+      "notes": "Ordinary interim and final only. Company reports operating financials in USD but explicitly denominates shareholder dividends in A$.",
+      "reviewedOn": "2026-11-14",
+      "sourceSha256": "12f0593a975bf4675254f5e4b14c170d7773d1c6a278b186a53a2e1b358aee0d"
+    },
+    "WDS.AX": {
+      "kind": "reported",
+      "periodEnd": "2025-12-31",
+      "announcedOn": "2026-02-24",
+      "dps": 1.65309255,
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY25 interim",
+          "amount": 0.81817901,
+          "currency": "AUD",
+          "paymentDate": "2025-09-24"
+        },
+        {
+          "label": "FY25 final",
+          "amount": 0.83491354,
+          "currency": "AUD",
+          "announcedOn": "2026-02-24",
+          "paymentDate": "2026-03-27"
+        }
+      ],
+      "validUntil": "2027-03-31",
+      "sources": [
+        "https://www.woodside.com/docs/default-source/investor-documents/major-reports-%28static-pdfs%29/2025-annual-report/annual-report-2025.pdf",
+        "https://www.woodside.com/investors/dividend-information"
+      ],
+      "evidence": "Official live dividend-information HTML: 'Year Payment Date Record Date Dividend (US cents per share) Australian equivalent (cents)* ... 2025 Final 2025 Interim 27 Mar 26 24 Sept 25 6 Mar 26 29 Aug 25 US 59 US 53 AU 83.491354 AU 81.817901 100 100 Inactive Inactive'. Official 2025 Annual Report: 'for the 12-month period ended 31 December 2025'; Appendix 4E: 'Final dividend (US cents per share) Ordinary 59c ... Interim dividend (US cents per share) Ordinary 53c'. Report signed on 24 February 2026.",
+      "notes": "Actual Australian-equivalent cents divided by 100 and summed. Both distributions explicitly ordinary in Appendix 4E. FY26 interim excluded. USD FY25 equivalent is 1.12, not added to AUD.",
+      "reviewedOn": "2026-11-14",
+      "sourceSha256": "316ca7f3b8d28e5a3b669894bb030ee0d225e8e4e9ff5940e49dd0e94774a0be"
+    },
+    "ARG.AX": {
+      "kind": "reported",
+      "periodEnd": "2026-06-30",
+      "announcedOn": "2026-08-05",
+      "dps": 0.385,
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY26 interim",
+          "amount": 0.185,
+          "currency": "AUD"
+        },
+        {
+          "label": "FY26 final",
+          "amount": 0.2,
+          "currency": "AUD",
+          "announcedOn": "2026-08-05"
+        }
+      ],
+      "validUntil": "2027-09-09",
+      "sources": [
+        "https://argoinvestments.com.au/wp-content/uploads/Media-release-ARG-FY26-FINAL.pdf"
+      ],
+      "evidence": "Official '2026 FINANCIAL YEAR RESULTS', dated '5 August 2026': 'The fully franked final dividend is 20.0 cents per share. Together with the interim dividend of 18.5 cents per share, the full-year dividend reaches a record 38.5 cents per share, fully franked.' Report identifies returns 'to 30 June 2026'. 'The final dividend also includes a listed investment company (LIC) capital gain component of 5.0 cents per share'.",
+      "notes": "The 5.0c LIC capital-gain component is part of the 20.0c final dividend and is tax characterization, not an additional special dividend. It is not separately added or deducted. Forecast CY2027 four quarterly 10c dividends excluded.",
+      "reviewedOn": "2026-11-14",
+      "sourceSha256": "2c290ac0f7fd1fb2d219c75f34493f46701fec8bce0156a537a7a9dbd8266373"
+    },
+    "AGL.AX": {
+      "kind": "reported",
+      "periodEnd": "2026-06-30",
+      "announcedOn": "2026-08-12",
+      "dps": 0.5,
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY26 interim",
+          "amount": 0.24,
+          "currency": "AUD",
+          "paymentDate": "2026-03-26"
+        },
+        {
+          "label": "FY26 final",
+          "amount": 0.26,
+          "currency": "AUD",
+          "announcedOn": "2026-08-12",
+          "paymentDate": "2026-09-24"
+        }
+      ],
+      "validUntil": "2027-09-16",
+      "sources": [
+        "https://www.agl.com.au/content/dam/digital/agl/documents/about-agl/news-centre/2026/260812-fy26-results-announcement-and-fy27-guidance.pdf",
+        "https://www.agl.com.au/content/dam/digital/agl/documents/about-agl/investors/2026/260812-2026-annual-report.pdf",
+        "https://www.agl.com.au/content/dam/digital/agl/documents/about-agl/news-centre/2026/260812-appendix-3a-1-notification-of-dividend-distribution.pdf"
+      ],
+      "evidence": "Official results release dated '12 August 2026': 'results for the twelve months ended 30 June 2026 (FY26)' and 'Fully franked final dividend of 26 cents per share declared; total dividend for FY26 of 50 cents per share'. Annual report: 'The annual dividend for the year ended 30 June 2026 was 50.0 cents per share'; dividend table: 'Interim dividend of 24.0 cents per share 100% franked 26 March 2026 ... Final dividend of 26.0 cents per share 100% franked 24 September 2026'. Appendix 3A.1: 'Date of this announcement 12/8/2026 Distribution Amount AUD 0.26000000'; Part 3A is ordinary dividend/distribution.",
+      "notes": "Ordinary interim plus final. FY25 final paid September 2025 excluded from FY26 total.",
+      "reviewedOn": "2026-11-14",
+      "sourceSha256": "9aefcb20f75be8a9e29ec232249556ba0400a46744ffc11e50c13dc8301311cf"
+    },
+    "ORG.AX": {
+      "kind": "reported",
+      "periodEnd": "2026-06-30",
+      "announcedOn": "2026-08-13",
+      "dps": 0.6,
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY26 ordinary annual dividend (reported aggregate)",
+          "amount": 0.6
+        }
+      ],
+      "validUntil": "2027-09-17",
+      "sources": [
+        "https://announcements.asx.com.au/asxpdf/20260813/pdf/072pz092rkcqv0.pdf"
+      ],
+      "evidence": " \nOrigin Energy Limited ABN 30 000 051 696 • Level 32, Tower 1, 100 Barangaroo Avenue, Barangaroo, NSW 2000 \nGPO Box 5376, Sydney NSW 2001 • Telephone (02) 8345 5000 • Facsimile (02) 9252 9244• www.originenergy.com.au \n \nTo \nCompany Announcements Office \n \nFacsimile  1300 135 638 \n \nCompany \nASX Limited \n \nDate \n13 August 2026 \n \nFrom \nHelen Hardy  \n \nPages  \n5 \n \nSubject \nASX/Media Release - Full Year Results 2026 \n \n \nPlease find attached a release on the above subject. \n \nAuthorised for lodgement by: \n \n \n \n \nHelen Hardy \nCompany Secretary  \n02 8345 5000 \n \nFor personal use only\n FY26 Results ASX\nASX / Media Release\n13 AUGUST 2026\nFull Year Results 2026\nSTATUTORY \nPROFIT\n$1,574M\nvs $1,481M in FY25\nUNDERLYING \nPROFIT\n$1,159M\nvs $1,490M in FY25\nUNDERLYING \nEBITDA\n$3,220M\nvs $3,411M in FY25\nADJ. FREE \nCASH FLOW\n$2,074M\nvs $1,207M in FY25\nFINAL DIVIDEND\n30cps\nFully franked. 60 cps total \nfor FY26\nHighlights\n•\nStatutory profit of $1,574 million for FY26, up from $1,481 million in FY25.\n•\nUnderlying profit of $1,159 million, compared to $1,490 million in FY25, reflecting an expected reduction in commodity-linked \nearnings from Integrated Gas and higher depreciation and amortisation, partially offset by improvements in Energy Markets.\n•\nUnderlying EBITDA of $3,220 million, compared to $3,411 million in FY25, with improvements in Energy Markets and Octopus \nEnergy, more than offset by a reduction in Integrated Gas driven by lower realised oil prices and lower LNG trading gains.\n•\nAdjusted Free Cash Flow increased by $867 million to $2,074 million, driven by strong cash flow from Energy Markets and \nAustralia Pacific LNG and lower tax paid.\n•\nAdjusted Net Debt to Adjusted Underlying EBITDA of 1.6x, driven by strong cash flow.\n•\nThe Board determined a fully franked final dividend of 30 cents per share, bringing total FY26 dividends to 60 cents per share, \nfully franked.\n•\nRetail added 243,000 customer accounts and cost-to-serve delivered within targeted range.\n•\n1.3 GW / 4.1 GWh of large-scale batteries operational as at August out of a total 1.8 GW development program.\n•\nOctopus Energy grew customer accounts by 2.2 million to 19 million. Kraken Technologies delivered revenue growth of 19 per \ncent and growth in contracted accounts of 21 million to 95 million.\n•\nKraken Technologies formally separated from Octopus Energy and completed a US$1 billion standalone equity raise in July \n2026 at a US$8.65 billion look-through valuation.\nFRANK CALABRIA, CHIEF EXECUTIVE OFFICER, COMMENTARY:\n\"Origin delivered a solid full-year result, with strong cash generation and continued good performance in \nEnergy Markets helping offset the expected reduction in commodity-linked earnings in Integrated Gas. \nSupported by a healthy balance sheet, this allowed us to keep investing and deliver consistent returns \nto shareholders.\n\"Our portfolio is increasingly well positioned for a changing energy market, with new battery capacity \nbrought into commercial operation on time and on budget, as well as good progress across the remainder \nof our storage development pipeline. Flexible generation and storage will become more important as more \nrenewable energy enters the system.\n\"We are focused on making it easier for households and businesses to electrify, manage energy use efficiently \nand bring together products like solar, batteries, electric vehicles, broadband and orchestration services. We \ncontinue to grow our customer base, reaching 4.94 million accounts, and more of our customers are joining \nOrigin’s virtual power plant, Loop.\n“We committed significant funding to support the financially vulnerable, and we are helping all customers \nmanage their energy costs, with greater visibility of how they use energy and more control over when they use \nit. Innovative products like EV Power Up that enable customers to shift their energy load to optimal times of \nthe day, and app features that help them better see their usage stats, are getting strong take-up by customers.\n\"Looking ahead, our focus is on growth and disciplined execution of our strategy: helping customers get more \nvalue from their energy, supporting them through the transition, bringing innovative products and services \nto market, strengthening our renewables and storage portfolio, maintaining reliable gas supply for customers, \nand continuing to invest in the business,\" Mr Calabria said.\n1\nFor personal use only\n FY26 Results ASX\nOperating Performance\nEnergy Markets\nEBITDA ($ million)\n1,404\n1,404\n1,701\n1,701\nFY25\nFY26\n•\nUnderlying EBITDA of $1,701 million, compared to $1,404 million in \nFY25, with continued strong performance across all areas.\n•\nElectricity Gross Profit of $1,608 million compared to $1,429 million \nin FY25.\n•\nNatural Gas Gross Profit of $612 million compared to $593 million \nin FY25.\n•\nAdded 243,000 customer accounts, with churn of 15.0 per cent, 6.7 \npercentage points better than the market average of 21.7 per cent.\n•\nCost to serve was $642 million compared to $698 million in FY25.\n•\nOrigin has completed the initial phase of its review of a data security \nincident, involving unauthorised access to some customers' information. \nThe matter remains subject to criminal investigation. The review is \nongoing and the focus is on supporting affected customers.\nIntegrated Gas\nEBITDA ($ million)\n \n2,202\n2,202\n1,620\n1,620\nFY25\nFY26\n•\nUnderlying EBITDA of $1,620 million, compared to $2,202 million in \nFY25, in line with expectations of lower oil-linked earnings at Australia \nPacific LNG and lower Origin LNG trading gains.\n•\nAustralia Pacific LNG production of 668 PJ (100 per cent).\n•\nAverage realised LNG price decreased to A$13.64/GJ, and domestic \nrealised price decreased to $6.45/GJ.\n•\nOrigin received $911 million in fully franked dividends from Australia \nPacific LNG, up from $797 million in FY25.\n•\nAustralia Pacific LNG 2P reserves increased 332 PJ before production to \n9,619 PJ (100 per cent).\nOctopus Energy\nEBITDA ($ million)\n \n(88)\n(88)\n(8)\n(8)\nFY25\nFY26\n•\nOrigin's share of Octopus Energy and Kraken Technologies’ Underlying \nEBITDA was a loss of $8 million, an improvement on the $88 million loss \nin FY25, primarily reflecting a rebound in UK Retail earnings.\n•\nOctopus Energy customer accounts grew to 19 million, up 2.2 million in \nFY26; Octopus was named Britain's Most Admired Company in 2025.\n•\nKraken Technologies' contracted customer accounts grew 28 per cent to \n95 million, approaching its 2027 target of 100 million.\n•\nOrigin invested $210 million in the Kraken equity raise in July 2026 and \nholds a 22.7 per cent economic interest across both Octopus Energy \nand Kraken.\n2\nFor personal use only\n FY26 Results ASX\nDelivering for customers, communities and the planet\nCUSTOMERS\n•\nIncreased support for customers in hardship \nto $40 million in FY26, totalling $125 million \nover the past three years.\n•\nSupported business and industry, as one of \nthe largest domestic suppliers of gas.\n•\nSupport for customers affected by data \nsecurity ",
+      "notes": "",
+      "reviewedOn": "2026-11-14"
+    },
+    "COL.AX": {
+      "kind": "reported",
+      "periodEnd": "2026-06-28",
+      "announcedOn": "2026-08-25",
+      "dps": 0.78,
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY26 interim",
+          "amount": 0.41,
+          "currency": "AUD",
+          "paymentDate": "2026-03-30"
+        },
+        {
+          "label": "FY26 final",
+          "amount": 0.37,
+          "currency": "AUD",
+          "announcedOn": "2026-08-25",
+          "paymentDate": "2026-09-22"
+        }
+      ],
+      "validUntil": "2027-09-29",
+      "sources": [
+        "https://www.colesgroup.com.au/DownloadFile.axd?file=%2FReport%2FComNews%2F20260825%2F03125402.pdf",
+        "https://www.colesgroup.com.au/FormBuilder/_Resource/_module/ir5sKeTxxEOndzdh00hWJw/file/Annual_Report.pdf"
+      ],
+      "evidence": "Official FY26 results release dated '25 August 2026' for '52 WEEKS TO 28 JUNE 2026': 'The Coles Board has declared a fully franked final dividend of 37 cents per share ... increasing total declared dividends for the year by 13.0% to 78 cents per share.' Official 2026 Annual Report, dividend table: 'In respect of the year ... FY26 Interim dividend 41.0 cents 41.0 cents Final dividend 37.0 cents 37.0 cents'.",
+      "notes": "Uses actual 52-week FY26 period end 28 June 2026, not a normalized 30 June date. Ordinary interim plus final only; FY25 final and historical special dividends excluded.",
+      "reviewedOn": "2026-11-14",
+      "sourceSha256": "c546caca909daffedadc698bfd367326a94f0c2b4f23134f55f8a056b59ef571"
+    }
+  }
+}

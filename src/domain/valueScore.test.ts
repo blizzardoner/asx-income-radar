@@ -2,6 +2,15 @@ import { describe, expect, it } from 'vitest'
 import { afterTaxYield, evaluateStock, grossedUpYield } from './valueScore'
 
 describe('evaluateStock', () => {
+  it('does not create a yield, score or buy point when ordinary annual income is unverified', () => {
+    const result = evaluateStock({ price: 10, sustainableDps: null,
+      requiredCashYield: 0.05, quality: 'A', payoutCoverage: 1.2, dataAgeDays: 0 })
+    expect(result.status).toBe('UNVERIFIED')
+    expect(result.cashYield).toBeNull()
+    expect(result.buyPrice).toBeNull()
+    expect(result.score).toBe(0)
+  })
+
   it('marks a quality income stock as BUY below its hard buy price', () => {
     const result = evaluateStock({
       price: 9.40,
