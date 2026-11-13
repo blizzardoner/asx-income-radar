@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 import json
+from datetime import datetime, timedelta, timezone, date
+from math import isfinite
 from pathlib import Path
 
 from update_market_data import OUTPUT_PATH, UNIVERSE_PATH, update_market_data
@@ -8,13 +10,29 @@ ROOT = Path(__file__).resolve().parents[1]
 STATE_PATH = ROOT / "data" / "alert-state.json"
 
 
-def evaluate_status(stock, market):
-    if market.get("dataAgeDays", 99) > 7:
-        return "STALE", 0.0, 0.0
-    sustainable_dps = stock.get("sustainableDpsOverride")
-    if sustainable_dps is None:
-        ordinary_dps = market.get("annualOrdinaryCashDps", market["trailingCashDps"])
-        sustainable_dps = ordinary_dps * stock["stabilityFactor"]
+def evaluate_status(stock, market, as_of=None):
+    as_of = as_of or (datetime.now(timezone.utc) + timedelta(seconds=market.get('exchangeUtcOffset', 36000))).date()
+    try:
+        quote_age = (as_of - date.fromisoformat(market['marketDate'])).days
+    except (KeyError, TypeError, ValueError):
+        quote_age = 99
+    if max(market.get('dataAgeDays', 99), quote_age) > 7 or quote_age < 0:
+        return 'STALE', None, None
+    basis = market.get('dividendBasis') or {}
+    ordinary_dps = basis.get('annualDpsAud')
+    try:
+        verified = (basis.get('status') == 'verified'
+                    and date.fromisoformat(basis['announcedOn']) <= as_of <= date.fromisoformat(basis['validUntil'])
+                    and ordinary_dps is not None and isfinite(ordinary_dps) and ordinary_dps >= 0)
+        if basis.get('currency') != 'AUD':
+            fx = basis.get('fx') or {}
+            fx_age = (as_of - date.fromisoformat(fx['asOf'])).days
+            verified = verified and 0 <= fx_age <= 7 and isfinite(fx['rate']) and fx['rate'] > 0
+    except (KeyError, ValueError, TypeError):
+        verified = False
+    if not verified:
+        return 'UNVERIFIED', None, None
+    sustainable_dps = ordinary_dps * stock['stabilityFactor']
     buy_price = sustainable_dps / stock["requiredCashYield"]
     cash_yield = sustainable_dps / market["price"]
     if (

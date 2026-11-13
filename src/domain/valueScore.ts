@@ -1,9 +1,9 @@
 export type QualityGrade = 'A' | 'B' | 'C'
-export type ValueStatus = 'BUY' | 'WATCH' | 'WAIT' | 'STALE'
+export type ValueStatus = 'BUY' | 'WATCH' | 'WAIT' | 'STALE' | 'UNVERIFIED'
 
 export interface StockEvaluationInput {
   price: number
-  sustainableDps: number
+  sustainableDps: number | null
   requiredCashYield: number
   quality: QualityGrade
   payoutCoverage: number
@@ -11,9 +11,9 @@ export interface StockEvaluationInput {
 }
 
 export interface StockEvaluation {
-  buyPrice: number
-  cashYield: number
-  discountToBuyPrice: number
+  buyPrice: number | null
+  cashYield: number | null
+  discountToBuyPrice: number | null
   score: number
   status: ValueStatus
 }
@@ -37,6 +37,10 @@ export function afterTaxYield(
 }
 
 export function evaluateStock(input: StockEvaluationInput): StockEvaluation {
+  if (input.sustainableDps == null || !Number.isFinite(input.sustainableDps)) {
+    return { buyPrice: null, cashYield: null, discountToBuyPrice: null, score: 0,
+      status: input.dataAgeDays > 7 ? 'STALE' : 'UNVERIFIED' }
+  }
   const buyPrice = input.sustainableDps / input.requiredCashYield
   const cashYield = input.sustainableDps / input.price
   const discountToBuyPrice = buyPrice / input.price - 1

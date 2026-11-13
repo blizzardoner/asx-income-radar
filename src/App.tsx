@@ -18,11 +18,23 @@ export interface UniverseStock {
   risk: string
 }
 
+export interface PriceChange {
+  percent: number | null
+  amount: number | null
+  baselinePrice: number | null
+  baselineDate: string | null
+  targetDate: string
+}
+
+const pricePeriods = [{ key: 'day', label: '当天' }, { key: 'week', label: '过去一周' },
+  { key: 'year', label: '过去一年' }] as const
+
 export interface MarketStock {
   price: number
   previousClose?: number | null
   dailyChange?: number | null
   dailyChangePercent?: number | null
+  priceChanges?: Partial<Record<'day' | 'week' | 'year', PriceChange>>
   currency: string
   marketDate: string
   dataAgeDays: number
@@ -30,7 +42,20 @@ export interface MarketStock {
   low52w: number | null
   firstClose52w: number | null
   trailingCashDps: number
-  annualOrdinaryCashDps?: number
+  annualOrdinaryCashDps?: number | null
+  dividendBasis?: {
+    status: string
+    annualDpsAud: number | null
+    kind?: 'reported' | 'guidance'
+    periodEnd?: string
+    announcedOn?: string
+    validUntil?: string
+    sources?: string[]
+    reason?: string
+    dps?: number | null
+    currency?: string
+    fx?: { rate: number; asOf: string; source: string }
+  }
 }
 
 export interface MarketData {
@@ -49,35 +74,55 @@ const statusLabels: Record<ValueStatus, string> = {
   WATCH: '接近买点',
   WAIT: '等待',
   STALE: '数据过期',
+  UNVERIFIED: '股息待核实',
 }
 
-const statusOrder: Record<ValueStatus, number> = { BUY: 0, WATCH: 1, WAIT: 2, STALE: 3 }
-const money = (value: number) => `A$${value.toFixed(2)}`
-const percent = (value: number) => `${(value * 100).toFixed(1)}%`
+const statusOrder: Record<ValueStatus, number> = { BUY: 0, WATCH: 1, WAIT: 2, UNVERIFIED: 3, STALE: 4 }
+const money = (value: number | null) => value == null ? '—' : `A$${value.toFixed(2)}`
+const percent = (value: number | null) => value == null ? '—' : `${(value * 100).toFixed(1)}%`
+const changePercent = (value: number | null | undefined) => {
+  if (value == null) return '—'
+  const rounded = Number((value * 100).toFixed(2))
+  return `${rounded > 0 ? '+' : ''}${rounded.toFixed(2)}%`
+}
 
 export default function App({ initialUniverse, initialMarketData }: AppProps) {
   const [query, setQuery] = useState('')
   const marginalTaxRate = 0.47
+  const asOf = new Intl.DateTimeFormat('en-CA', { timeZone: 'Australia/Sydney' }).format(new Date())
   const allRows = initialUniverse.flatMap((stock) => {
     const market = initialMarketData.stocks[stock.ticker]
     if (!market) return []
-    const ordinaryDps = market.annualOrdinaryCashDps ?? market.trailingCashDps
-    const sustainableDps = stock.sustainableDpsOverride ?? ordinaryDps * stock.stabilityFactor
+    const basis = market.dividendBasis
+    const fxDate = basis?.fx?.asOf
+    const fxTime = fxDate ? Date.parse(fxDate) : NaN
+    const fxAge = (Date.parse(asOf) - fxTime) / 86400000
+    const fxVerified = basis?.currency === 'AUD' || (basis?.fx != null
+      && Number.isFinite(basis.fx.rate) && basis.fx.rate > 0
+      && /^\d{4}-\d{2}-\d{2}$/.test(fxDate ?? '') && Number.isFinite(fxTime)
+      && new Date(fxTime).toISOString().slice(0, 10) === fxDate && fxAge >= 0 && fxAge <= 7)
+    const ordinaryDps = basis?.status === 'verified' && basis.validUntil && basis.validUntil >= asOf
+      && basis.announcedOn && basis.announcedOn <= asOf
+      && fxVerified
+      && basis.annualDpsAud != null && Number.isFinite(basis.annualDpsAud) && basis.annualDpsAud >= 0
+      ? basis.annualDpsAud : null
+    const sustainableDps = ordinaryDps == null ? null : ordinaryDps * stock.stabilityFactor
+    const quoteAge = Math.floor((Date.parse(asOf) - Date.parse(market.marketDate)) / 86400000)
     const evaluation = evaluateStock({
       price: market.price,
       sustainableDps,
       requiredCashYield: stock.requiredCashYield,
       quality: stock.quality,
       payoutCoverage: stock.payoutCoverage,
-      dataAgeDays: market.dataAgeDays,
+      dataAgeDays: Number.isFinite(quoteAge) && quoteAge >= 0 ? Math.max(market.dataAgeDays, quoteAge) : 99,
     })
-    const grossYield = grossedUpYield(evaluation.cashYield, stock.frankingFraction)
-    const netYield = afterTaxYield(evaluation.cashYield, stock.frankingFraction, marginalTaxRate)
-    const oneYearReturn = market.firstClose52w ? market.price / market.firstClose52w - 1 : null
+    const grossYield = evaluation.cashYield == null ? null : grossedUpYield(evaluation.cashYield, stock.frankingFraction)
+    const netYield = evaluation.cashYield == null ? null : afterTaxYield(evaluation.cashYield, stock.frankingFraction, marginalTaxRate)
+
     const rangePosition = market.high52w && market.low52w && market.high52w > market.low52w
       ? (market.price - market.low52w) / (market.high52w - market.low52w)
       : 0.5
-    return [{ stock, market, sustainableDps, evaluation, grossYield, netYield, oneYearReturn, rangePosition }]
+    return [{ stock, market, ordinaryDps, sustainableDps, evaluation, grossYield, netYield, rangePosition }]
   }).sort((a, b) => statusOrder[a.evaluation.status] - statusOrder[b.evaluation.status] || b.evaluation.score - a.evaluation.score)
 
   const normalizedQuery = query.trim().toLowerCase()
@@ -86,7 +131,8 @@ export default function App({ initialUniverse, initialMarketData }: AppProps) {
     : allRows
   const buyCount = allRows.filter((row) => row.evaluation.status === 'BUY').length
   const watchCount = allRows.filter((row) => row.evaluation.status === 'WATCH').length
-  const topYield = allRows.reduce((best, row) => Math.max(best, row.evaluation.cashYield), 0)
+  const topYield = allRows.reduce<number | null>((best, row) => row.evaluation.cashYield == null
+    ? best : Math.max(best ?? 0, row.evaluation.cashYield), null)
   const freshestDate = allRows[0]?.market.marketDate ?? '—'
 
   return (
@@ -132,29 +178,49 @@ export default function App({ initialUniverse, initialMarketData }: AppProps) {
         </div>
 
         <section className="stock-list">
-          {rows.map(({ stock, market, sustainableDps, evaluation, grossYield, netYield, oneYearReturn, rangePosition }) => (
+          {rows.map(({ stock, market, ordinaryDps, sustainableDps, evaluation, grossYield, netYield, rangePosition }) => (
             <details className={`stock-card status-${evaluation.status.toLowerCase()}`} key={stock.ticker}>
               <summary>
                 <div className="identity">
                   <div className="ticker">{stock.ticker.replace('.AX', '')}</div>
                   <div><h3>{stock.name}</h3><span>{stock.sector} · 质量 {stock.quality}</span></div>
                 </div>
-                <div className="price-block"><strong>{money(market.price)}</strong><span className={market.dailyChangePercent == null ? '' : market.dailyChangePercent >= 0 ? 'positive' : 'negative'}>{market.dailyChangePercent == null ? '当日 —' : `当日 ${market.dailyChangePercent >= 0 ? '+' : ''}${percent(market.dailyChangePercent)}`}</span></div>
+                <div className="price-block"><strong>{money(market.price)}</strong><span>{market.marketDate}</span></div>
                 <div className="yield-block"><strong>{percent(evaluation.cashYield)}</strong><span>可持续现金收益率</span></div>
                 <div className="buy-block"><strong>{money(evaluation.buyPrice)}</strong><span>硬买入价</span></div>
                 <div className={`status-pill status-${evaluation.status.toLowerCase()}`}><b>{statusLabels[evaluation.status]}</b><span>{evaluation.score}分</span></div>
+                <div className="price-periods" role="group" aria-label="股价变化">
+                  {pricePeriods.map(({ key, label }) => {
+                    const change = market.priceChanges?.[key]
+                    return <div className="price-period" key={key}>
+                      <span>{label}</span>
+                      <strong className={change?.percent == null || changePercent(change.percent) === '0.00%' ? '' : change.percent > 0 ? 'positive' : 'negative'}>{changePercent(change?.percent)}</strong>
+                    </div>
+                  })}
+                </div>
               </summary>
               <div className="detail-grid">
                 <div className="metric"><span>现价</span><strong>{money(market.price)}</strong></div>
                 <div className="metric"><span>可持续现金收益率</span><strong>{percent(evaluation.cashYield)}</strong></div>
-                <div className="metric"><span>当日价格变化</span><strong>{market.dailyChangePercent == null ? '—' : `${market.dailyChangePercent >= 0 ? '+' : ''}${percent(market.dailyChangePercent)}`}</strong></div>
-                <div className="metric"><span>近52周价格变化</span><strong>{oneYearReturn == null ? '—' : percent(oneYearReturn)}</strong></div>
+                {pricePeriods.map(({ key, label }) => {
+                  const change = market.priceChanges?.[key]
+                  return <div className="metric price-baseline" key={key}><span>{label}基准收盘</span>
+                    <strong>{money(change?.baselinePrice ?? null)}</strong>
+                    <small>{change?.baselineDate ?? '历史数据不足'} · 不含股息</small></div>
+                })}
                 <div className="metric"><span>过去12个月现金分派（含特别）</span><strong>{money(market.trailingCashDps)}</strong></div>
                 <div className="metric"><span>模型可持续DPS</span><strong>{money(sustainableDps)}</strong></div>
                 <div className="metric"><span>Franking调整毛收益率</span><strong>{percent(grossYield)}</strong></div>
                 <div className="metric"><span>47%税率税后收益估算</span><strong>{percent(netYield)}</strong></div>
                 <div className="metric"><span>现金收益率计算</span><strong>{money(sustainableDps)} ÷ {money(market.price)}</strong></div>
-                {stock.dividendSource && <div className="metric"><span>普通／特别股息依据</span><a href={stock.dividendSource} target="_blank" rel="noreferrer">公司披露</a></div>}
+                <div className="income-basis">
+                  <div><span>{market.dividendBasis?.kind === 'guidance' ? '普通年度股息指引（非保证）' : ['reit', 'infrastructure'].includes(stock.type) ? '披露年度经常性现金分派' : '披露普通年度股息'}</span>
+                    <strong>{money(ordinaryDps)} · 财年截至 {market.dividendBasis?.periodEnd ?? '待核实'}</strong></div>
+                  <p>{sustainableDps == null ? market.dividendBasis?.reason ?? '股息依据缺失或超过有效期，不计算买点。' : '按披露财年归属，不按除息日窗口或派息笔数推断；模型再乘稳定系数。'}</p>
+                  <small>公布 {market.dividendBasis?.announcedOn ?? '—'} · 复核有效期至 {market.dividendBasis?.validUntil ?? '—'}</small>
+                  {ordinaryDps != null && market.dividendBasis?.fx && <small>USD股息按 {market.dividendBasis.fx.asOf} 汇率 × {market.dividendBasis.fx.rate.toFixed(4)} 换算为AUD，非历史实际到账金额。</small>}
+                  <div className="income-sources">{market.dividendBasis?.sources?.map((source, index) => <a href={source} key={source} target="_blank" rel="noreferrer">披露来源 {index + 1}</a>)}</div>
+                </div>
                 <div className="range"><div><span>52周低 {market.low52w ? money(market.low52w) : '—'}</span><span>52周高 {market.high52w ? money(market.high52w) : '—'}</span></div><i><b style={{ width: `${Math.min(100, Math.max(0, rangePosition * 100))}%` }} /></i></div>
                 <div className="risk"><AlertTriangle size={17} /><div><span>首要风险</span><p>{stock.risk}</p></div></div>
               </div>
@@ -163,8 +229,8 @@ export default function App({ initialUniverse, initialMarketData }: AppProps) {
         </section>
 
         <footer>
-          <p>当日涨跌以上一交易日收盘价为基准；近52周价格变化不含股息。现金分派按澳洲除息日统计过去12个日历月，不等于付款日实际到账现金。</p>
-          <p>模型采用最近一个年度普通派息周期（默认最近两笔；季度派息按配置）或明确的普通股息指引，再作稳定性折扣；已知特别股息剔除，现金收益率不含Franking抵税额。价格与股息事件来自Yahoo Finance，新的特别分派、资本返还、REIT税务构成及公司指引仍需复核。</p>
+          <p>当天以上一交易日收盘价为基准；过去一周／一年以报价日往前7天／周年日为目标，休市取此前最近收盘价（最多回溯7天），历史不足显示“—”。价格变化均不含股息，拆股调整价格不再重复调整。</p>
+          <p>历史现金分派来自Yahoo Finance，按澳洲除息日统计12个日历月；模型只采用有来源的完整财年普通股息／经常性分派或明确的普通年度指引，再乘稳定系数，不默认一年派两次或四次。未核实或过期的依据不触发买入提醒。历史财年基数不保证未来收入；新财报、特别分派和指引变更需要更新披露记录，REIT分派包含经常性税务递延构成。</p>
           <p>这是买点初筛工具，不构成个人投资建议。Franking税后收益按澳洲公司税率30%、个人边际税率47%估算。</p>
         </footer>
       </main>
