@@ -36,13 +36,43 @@ const marketData = {
 }
 
 describe('App', () => {
+  it('uses the ordinary annual basis for yield and buy price, not three rolling payments', () => {
+    render(<App initialUniverse={universe} initialMarketData={{
+      ...marketData,
+      stocks: { 'TEST.AX': { ...marketData.stocks['TEST.AX'],
+        trailingCashDps: 1.08, annualOrdinaryCashDps: 0.72 } },
+    }} />)
+
+    expect(screen.getAllByText('7.7%')).toHaveLength(3)
+    expect(screen.getByText('A$10.00')).toBeInTheDocument()
+    expect(screen.queryByText('11.5%')).not.toBeInTheDocument()
+    expect(screen.getByText('A$1.08')).toBeInTheDocument()
+  })
+
+  it('labels daily change separately from the 52-week price change', () => {
+    render(<App initialUniverse={universe} initialMarketData={{
+      ...marketData,
+      stocks: { 'TEST.AX': { ...marketData.stocks['TEST.AX'], dailyChangePercent: 0.012 } },
+    }} />)
+
+    expect(screen.getByText('当日 +1.2%')).toBeInTheDocument()
+    expect(screen.getByText('近52周价格变化')).toBeInTheDocument()
+    expect(screen.getByText('-6.0%')).toBeInTheDocument()
+  })
+
+  it('shows missing daily change as unavailable rather than zero', () => {
+    render(<App initialUniverse={universe} initialMarketData={marketData} />)
+
+    expect(screen.getByText('当日 —')).toBeInTheDocument()
+  })
+
   it('shows a buy signal with its hard buy price and sustainable yield', () => {
     render(<App initialUniverse={universe} initialMarketData={marketData} />)
 
     expect(screen.getByText('TEST')).toBeInTheDocument()
     expect(screen.getByText('买入区')).toBeInTheDocument()
     expect(screen.getByText('A$10.00')).toBeInTheDocument()
-    expect(screen.getAllByText('7.7%')).toHaveLength(2)
+    expect(screen.getAllByText('7.7%')).toHaveLength(3)
   })
 
   it('filters the value board by ticker or company name', () => {

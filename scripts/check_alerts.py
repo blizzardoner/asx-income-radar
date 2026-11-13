@@ -13,7 +13,8 @@ def evaluate_status(stock, market):
         return "STALE", 0.0, 0.0
     sustainable_dps = stock.get("sustainableDpsOverride")
     if sustainable_dps is None:
-        sustainable_dps = market["trailingCashDps"] * stock["stabilityFactor"]
+        ordinary_dps = market.get("annualOrdinaryCashDps", market["trailingCashDps"])
+        sustainable_dps = ordinary_dps * stock["stabilityFactor"]
     buy_price = sustainable_dps / stock["requiredCashYield"]
     cash_yield = sustainable_dps / market["price"]
     if (
