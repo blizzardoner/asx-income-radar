@@ -14,6 +14,107 @@ def basis(dps, valid_until='2099-01-01'):
 
 
 class BuildAlertsTests(unittest.TestCase):
+    def test_schema_two_missing_or_null_discovery_poll_cannot_emit_false_buy(self):
+        stock = {'ticker': 'TEST.AX', 'name': 'Test', 'quality': 'A',
+                 'requiredCashYield': .05, 'stabilityFactor': 1, 'payoutCoverage': 1.2}
+        for poll in ({}, {'disclosureUpdate': None}):
+            with self.subTest(poll=poll):
+                market = {'price': 10, 'dataAgeDays': 0, 'marketDate': '2026-11-14',
+                          'dividendBasis': basis(5), **poll}
+                self.assertEqual(build_alerts([stock], {'schemaVersion': 2,
+                    'stocks': {'TEST.AX': market}}, {}), ([], {'TEST.AX': 'UNVERIFIED'}))
+
+    def test_schema_one_and_unspecified_schema_keep_missing_poll_compatibility(self):
+        stock = {'ticker': 'TEST.AX', 'name': 'Test', 'quality': 'A',
+                 'requiredCashYield': .05, 'stabilityFactor': 1, 'payoutCoverage': 1.2}
+        market = {'price': 10, 'dataAgeDays': 0, 'marketDate': '2026-11-14', 'dividendBasis': basis(5)}
+        for schema in ({}, {'schemaVersion': 1}):
+            with self.subTest(schema=schema):
+                alerts, statuses = build_alerts([stock], {**schema, 'stocks': {'TEST.AX': market}}, {})
+                self.assertEqual(statuses, {'TEST.AX': 'BUY'})
+                self.assertEqual(len(alerts), 1)
+
+    def test_schema_two_current_discovery_poll_can_emit_buy(self):
+        stock = {'ticker': 'TEST.AX', 'name': 'Test', 'quality': 'A',
+                 'requiredCashYield': .05, 'stabilityFactor': 1, 'payoutCoverage': 1.2}
+        market = {'price': 10, 'dataAgeDays': 0, 'marketDate': '2026-11-14', 'dividendBasis': basis(5),
+                  'disclosureUpdate': {'status': 'current', 'checkedAt': '2026-11-14T01:00:00Z'}}
+        alerts, statuses = build_alerts([stock], {'schemaVersion': 2, 'stocks': {'TEST.AX': market}}, {})
+        self.assertEqual(statuses, {'TEST.AX': 'BUY'})
+        self.assertEqual(len(alerts), 1)
+
+    def test_new_unknown_universe_members_never_receive_invented_buy_thresholds(self):
+        market = {'price': 10, 'dataAgeDays': 0, 'marketDate': '2026-11-14', 'dividendBasis': basis(5)}
+        self.assertEqual(evaluate_status({'ticker': 'NEW.AX'}, market, date(2026, 11, 14)),
+                         ('UNVERIFIED', None, None))
+
+    def test_cached_disclosure_poll_is_revalidated_and_new_or_unavailable_cannot_alert(self):
+        stock = {'quality': 'A', 'requiredCashYield': .05, 'stabilityFactor': 1, 'payoutCoverage': 1.2}
+        for update in ({'status': 'needs_review', 'checkedAt': '2026-11-14T00:00:00Z'},
+                       {'status': 'unavailable', 'checkedAt': '2026-11-14T00:00:00Z'},
+                       {'status': 'current', 'checkedAt': '2026-11-01T00:00:00Z'},
+                       {'status': 'current', 'checkedAt': '2026-11-15T00:00:00Z'},
+                       {'status': 'current'}):
+            market = {'price': 10, 'dataAgeDays': 0, 'marketDate': '2026-11-14',
+                      'dividendBasis': basis(5), 'disclosureUpdate': update}
+            with self.subTest(update=update):
+                self.assertEqual(evaluate_status(stock, market, date(2026, 11, 14)),
+                                 ('UNVERIFIED', None, None))
+
+    def test_future_same_day_disclosure_poll_cannot_trigger_buy(self):
+        stock = {'ticker': 'FUTURE_POLL_PROBE', 'name': 'Test', 'quality': 'A',
+                 'requiredCashYield': .05, 'stabilityFactor': 1, 'payoutCoverage': 1.2}
+        market = {'price': 10, 'marketDate': '2026-11-14', 'dataAgeDays': 0,
+                  'dividendBasis': basis(5, '2027-01-01'),
+                  'disclosureUpdate': {'status': 'current', 'checkedAt': '2026-11-14T23:59:59Z'}}
+        self.assertEqual(evaluate_status(stock, market), ('UNVERIFIED', None, None))
+        self.assertEqual(build_alerts([stock], {'stocks': {'FUTURE_POLL_PROBE': market}}, {}),
+                         ([], {'FUTURE_POLL_PROBE': 'UNVERIFIED'}))
+
+    def test_disclosure_poll_seven_days_and_one_second_old_is_unverified(self):
+        stock = {'quality': 'A', 'requiredCashYield': .05, 'stabilityFactor': 1, 'payoutCoverage': 1.2}
+        market = {'price': 10, 'marketDate': '2026-11-14', 'dataAgeDays': 0,
+                  'dividendBasis': basis(5),
+                  'disclosureUpdate': {'status': 'current', 'checkedAt': '2026-11-07T00:59:59Z'}}
+        self.assertEqual(evaluate_status(stock, market, date(2026, 11, 14)),
+                         ('UNVERIFIED', None, None))
+
+    def test_disclosure_poll_timestamp_boundaries_include_seven_days_and_now(self):
+        stock = {'quality': 'A', 'requiredCashYield': .05, 'stabilityFactor': 1, 'payoutCoverage': 1.2}
+        for checked_at in ('2026-11-07T01:00:00Z', '2026-11-07T11:00:00+10:00',
+                           '2026-11-14T01:00:00Z', '2026-11-14T11:00:00+10:00'):
+            with self.subTest(checked_at=checked_at):
+                market = {'price': 10, 'marketDate': '2026-11-14', 'dataAgeDays': 0,
+                          'dividendBasis': basis(5),
+                          'disclosureUpdate': {'status': 'current', 'checkedAt': checked_at}}
+                self.assertEqual(evaluate_status(stock, market, date(2026, 11, 14))[0], 'BUY')
+
+    def test_disclosure_poll_timestamp_without_timezone_fails_closed(self):
+        stock = {'quality': 'A', 'requiredCashYield': .05, 'stabilityFactor': 1, 'payoutCoverage': 1.2}
+        market = {'price': 10, 'marketDate': '2026-11-14', 'dataAgeDays': 0,
+                  'dividendBasis': basis(5),
+                  'disclosureUpdate': {'status': 'current', 'checkedAt': '2026-11-14T00:00:00'}}
+        self.assertEqual(evaluate_status(stock, market), ('UNVERIFIED', None, None))
+
+    def test_invalid_disclosure_poll_timestamp_fails_closed(self):
+        stock = {'quality': 'A', 'requiredCashYield': .05, 'stabilityFactor': 1, 'payoutCoverage': 1.2}
+        for checked_at in ('2026-11-14Tnot-a-timeZ', '2026-11-14T25:00:00Z', '', None, 0, [], {}):
+            with self.subTest(checked_at=checked_at):
+                market = {'price': 10, 'marketDate': '2026-11-14', 'dataAgeDays': 0,
+                          'dividendBasis': basis(5),
+                          'disclosureUpdate': {'status': 'current', 'checkedAt': checked_at}}
+                self.assertEqual(evaluate_status(stock, market), ('UNVERIFIED', None, None))
+
+    def test_legacy_date_only_disclosure_poll_keeps_calendar_date_policy(self):
+        stock = {'quality': 'A', 'requiredCashYield': .05, 'stabilityFactor': 1, 'payoutCoverage': 1.2}
+        for checked_at, expected in (('2026-11-14', 'BUY'), ('2026-11-07', 'BUY'),
+                                     ('2026-11-06', 'UNVERIFIED'), ('2026-11-15', 'UNVERIFIED')):
+            with self.subTest(checked_at=checked_at):
+                market = {'price': 10, 'marketDate': '2026-11-14', 'dataAgeDays': 0,
+                          'dividendBasis': basis(5),
+                          'disclosureUpdate': {'status': 'current', 'checkedAt': checked_at}}
+                self.assertEqual(evaluate_status(stock, market, date(2026, 11, 14))[0], expected)
+
     def setUp(self):
         clock = patch('check_alerts.datetime').start()
         self.addCleanup(patch.stopall)

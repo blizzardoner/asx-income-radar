@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import json
 from datetime import datetime, timedelta, timezone, date
+from datetime import datetime as true_datetime
 from math import isfinite
 from pathlib import Path
 
@@ -10,14 +11,37 @@ ROOT = Path(__file__).resolve().parents[1]
 STATE_PATH = ROOT / "data" / "alert-state.json"
 
 
-def evaluate_status(stock, market, as_of=None):
-    as_of = as_of or (datetime.now(timezone.utc) + timedelta(seconds=market.get('exchangeUtcOffset', 36000))).date()
+def evaluate_status(stock, market, as_of=None, *, require_discovery=False):
+    """Require a current poll when requested; default preserves legacy callers."""
+    now = datetime.now(timezone.utc)
+    as_of = as_of or (now + timedelta(seconds=market.get('exchangeUtcOffset', 36000))).date()
     try:
         quote_age = (as_of - date.fromisoformat(market['marketDate'])).days
     except (KeyError, TypeError, ValueError):
         quote_age = 99
     if max(market.get('dataAgeDays', 99), quote_age) > 7 or quote_age < 0:
         return 'STALE', None, None
+    update = market.get('disclosureUpdate')
+    if require_discovery and update is None:
+        return 'UNVERIFIED', None, None
+    if update is not None:
+        try:
+            checked_at = update['checkedAt']
+            if not isinstance(checked_at, str):
+                return 'UNVERIFIED', None, None
+            if len(checked_at) == 10:
+                # Legacy date-only checks retain the calendar-date contract.
+                fresh = 0 <= (as_of - date.fromisoformat(checked_at)).days <= 7
+            else:
+                # Timestamp checks use elapsed instants, not exchange dates.
+                checked = true_datetime.fromisoformat(checked_at.replace('Z', '+00:00'))
+                fresh = checked.utcoffset() is not None and timedelta(0) <= now - checked <= timedelta(days=7)
+            if update['status'] != 'current' or not fresh:
+                return 'UNVERIFIED', None, None
+        except (KeyError, TypeError, ValueError):
+            return 'UNVERIFIED', None, None
+    if any(stock.get(key) is None for key in ('stabilityFactor', 'requiredCashYield', 'quality', 'payoutCoverage')):
+        return 'UNVERIFIED', None, None
     basis = market.get('dividendBasis') or {}
     ordinary_dps = basis.get('annualDpsAud')
     try:
@@ -54,7 +78,8 @@ def build_alerts(universe, market_data, previous):
         market = market_data.get("stocks", {}).get(stock["ticker"])
         if not market:
             continue
-        status, buy_price, cash_yield = evaluate_status(stock, market)
+        status, buy_price, cash_yield = evaluate_status(
+            stock, market, require_discovery=market_data.get('schemaVersion') == 2)
         statuses[stock["ticker"]] = status
         if status in labels and previous.get(stock["ticker"]) != status:
             code = stock["ticker"].replace(".AX", "")

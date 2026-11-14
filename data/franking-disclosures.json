@@ -1,0 +1,804 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-11-14",
+  "definition": "Franking fraction of the reviewed ordinary annual cash DPS; trust/stapled figures use franked cash / total ordinary cash distribution, not just corporate dividend component. Unknown is null.",
+  "records": {
+    "CBA.AX": {
+      "rate": 1.0,
+      "periodEnd": "2026-06-30",
+      "sources": [
+        "https://www.commbank.com.au/content/dam/commbank-assets/investors/2026/CBA-2026-Full-Year-Results-Profit-Announcement.pdf",
+        "https://www.commbank.com.au/about-us/investors/dividend-information.html"
+      ],
+      "announcedOn": "2026-08-12",
+      "kind": "annual_ordinary",
+      "basisKind": "reported",
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY26 interim ordinary",
+          "cashDps": 2.35,
+          "frankingFraction": 1.0,
+          "frankedCashDps": 2.35,
+          "currency": "AUD"
+        },
+        {
+          "label": "FY26 final ordinary",
+          "cashDps": 2.7,
+          "frankingFraction": 1.0,
+          "frankedCashDps": 2.7,
+          "currency": "AUD"
+        }
+      ],
+      "calculation": {
+        "method": "Python Decimal; sum(cashDps * frankingFraction) / sum(cashDps), using exact franked cash amounts when disclosed",
+        "cashDps": "5.05",
+        "frankedCashDps": "5.05",
+        "rateDecimal": "1"
+      },
+      "evidence": "Appendix 4E labels both current final 270c and interim 235c fully franked; annual narrative also explicitly calls FY26 $5.05 fully franked.",
+      "reviewedOn": "2026-11-14"
+    },
+    "NAB.AX": {
+      "rate": 1.0,
+      "periodEnd": "2026-09-30",
+      "sources": [
+        "https://www.nab.com.au/content/dam/nab/documents/reports/corporate/2026-full-year-results-summary.pdf",
+        "https://www.nab.com.au/about-us/shareholder-centre/dividend-information/payment-history",
+        "https://www.nab.com.au/about-us/shareholder-centre/financial-disclosures-and-reporting/financial-results"
+      ],
+      "announcedOn": "2026-11-05",
+      "kind": "annual_ordinary",
+      "basisKind": "reported",
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY26 interim ordinary",
+          "cashDps": 0.85,
+          "frankingFraction": 1.0,
+          "frankedCashDps": 0.85,
+          "currency": "AUD"
+        },
+        {
+          "label": "FY26 final ordinary",
+          "cashDps": 0.85,
+          "frankingFraction": 1.0,
+          "frankedCashDps": 0.85,
+          "currency": "AUD"
+        }
+      ],
+      "calculation": {
+        "method": "Python Decimal; sum(cashDps * frankingFraction) / sum(cashDps), using exact franked cash amounts when disclosed",
+        "cashDps": "1.70",
+        "frankedCashDps": "1.70",
+        "rateDecimal": "1"
+      },
+      "evidence": "FY26 results chart says Cents per share (fully franked), In respect of each financial year / period, and includes FY26 interim 85c and final 85c. This is annual chart evidence, not the latest-final-only 100% label.",
+      "reviewedOn": "2026-11-14"
+    },
+    "WBC.AX": {
+      "rate": 1.0,
+      "periodEnd": "2026-09-30",
+      "sources": [
+        "https://www.westpac.com.au/content/dam/public/wbc/documents/pdf/aw/ic/wbc-full-year-financial-results-2026.pdf",
+        "https://www.westpac.com.au/about-westpac/investor-centre/dividend-information/"
+      ],
+      "announcedOn": "2026-11-02",
+      "kind": "annual_ordinary",
+      "basisKind": "reported",
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY26 interim ordinary",
+          "cashDps": 0.77,
+          "frankingFraction": 1.0,
+          "frankedCashDps": 0.77,
+          "currency": "AUD"
+        },
+        {
+          "label": "FY26 final ordinary",
+          "cashDps": 0.77,
+          "frankingFraction": 1.0,
+          "frankedCashDps": 0.77,
+          "currency": "AUD"
+        }
+      ],
+      "calculation": {
+        "method": "Python Decimal; sum(cashDps * frankingFraction) / sum(cashDps), using exact franked cash amounts when disclosed",
+        "cashDps": "1.54",
+        "frankedCashDps": "1.54",
+        "rateDecimal": "1"
+      },
+      "evidence": "Annual shareholder-value table explicitly labels FY Sept 2026 154c and its two 77c half-years Fully franked ordinary dividends per share.",
+      "reviewedOn": "2026-11-14"
+    },
+    "ANZ.AX": {
+      "rate": 0.775,
+      "periodEnd": "2026-09-30",
+      "sources": [
+        "https://www.anz.com.au/newsroom/media/2026/november/2026-full-year-result---proposed-final-dividend/",
+        "https://www.anz.com/content/dam/anzcom/shareholder/Dividend-Distribution-ANZ-20261109.pdf"
+      ],
+      "announcedOn": "2026-11-09",
+      "kind": "annual_ordinary",
+      "basisKind": "reported",
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY26 interim ordinary",
+          "cashDps": 0.83,
+          "frankingFraction": 0.75,
+          "frankedCashDps": 0.6225,
+          "currency": "AUD"
+        },
+        {
+          "label": "FY26 proposed final ordinary",
+          "cashDps": 0.83,
+          "frankingFraction": 0.8,
+          "frankedCashDps": 0.664,
+          "currency": "AUD"
+        }
+      ],
+      "calculation": {
+        "method": "Python Decimal; sum(cashDps * frankingFraction) / sum(cashDps), using exact franked cash amounts when disclosed",
+        "cashDps": "1.66",
+        "frankedCashDps": "1.2865",
+        "rateDecimal": "0.775"
+      },
+      "evidence": "FY26 release explicitly says final 83c with franking rising from 75% to 80%, and identifies interim 2026 also 83c and its rise from 70% to 75%. Australian franking only, not NZ imputation.",
+      "reviewedOn": "2026-11-14"
+    },
+    "MQG.AX": {
+      "rate": 0.35,
+      "periodEnd": "2026-03-31",
+      "sources": [
+        "https://www.macquarie.com/au/en/about/news/2026/macquarie-group-fy26-result-announcement.html",
+        "https://www.macquarie.com/assets/macq/investor/results-and-presentations/2026/macquarie-group-fy26-agm-presentation.pdf"
+      ],
+      "announcedOn": "2026-05-08",
+      "kind": "annual_ordinary",
+      "basisKind": "reported",
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY26 interim ordinary",
+          "cashDps": 2.8,
+          "frankingFraction": 0.35,
+          "frankedCashDps": 0.98,
+          "currency": "AUD"
+        },
+        {
+          "label": "FY26 final ordinary",
+          "cashDps": 4.2,
+          "frankingFraction": 0.35,
+          "frankedCashDps": 1.47,
+          "currency": "AUD"
+        }
+      ],
+      "calculation": {
+        "method": "Python Decimal; sum(cashDps * frankingFraction) / sum(cashDps), using exact franked cash amounts when disclosed",
+        "cashDps": "7.0",
+        "frankedCashDps": "2.450",
+        "rateDecimal": "0.35"
+      },
+      "evidence": "Release explicitly calls total FY26 ordinary dividend $A7.00 per share (35 per cent franked); final $A4.20 and interim $A2.80 belong to FY26.",
+      "reviewedOn": "2026-11-14"
+    },
+    "SUN.AX": {
+      "rate": 1.0,
+      "periodEnd": "2026-06-30",
+      "sources": [
+        "https://delivery-p139617-e1446342.adobeaemcloud.com/adobe/assets/urn:aaid:aem:861dd99c-f57f-424f-85ef-02ada4220fbf/renditions/original/as/fy26-annual-report.pdf?assetname=fy26-annual-report.pdf",
+        "https://www.suncorpgroup.com.au/assets/documents/suncorpgroup/fy26-annual-report.pdf",
+        "https://www.suncorpgroup.com.au/investors/events/full-year-results-to-30-june-2026",
+        "https://www.suncorpgroup.com.au/assets/documents/suncorpgroup/announcements/2345525.pdf"
+      ],
+      "announcedOn": "2026-08-12",
+      "kind": "annual_ordinary",
+      "basisKind": "reported",
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY26 interim ordinary",
+          "cashDps": 0.17,
+          "frankingFraction": 1.0,
+          "frankedCashDps": 0.17,
+          "currency": "AUD"
+        },
+        {
+          "label": "FY26 final ordinary",
+          "cashDps": 0.52,
+          "frankingFraction": 1.0,
+          "frankedCashDps": 0.52,
+          "currency": "AUD"
+        }
+      ],
+      "calculation": {
+        "method": "Python Decimal; sum(cashDps * frankingFraction) / sum(cashDps), using exact franked cash amounts when disclosed",
+        "cashDps": "0.69",
+        "frankedCashDps": "0.69",
+        "rateDecimal": "1"
+      },
+      "evidence": "Annual report explicitly calls total FY26 ordinary 69c fully franked. Separate special 10c is excluded.",
+      "reviewedOn": "2026-11-14"
+    },
+    "QBE.AX": {
+      "rate": 0.28577981651376144,
+      "periodEnd": "2025-12-31",
+      "sources": [
+        "https://www.qbe.com/media/qbe/group/document-listing/2026/02/19/20/46/asx-announcement---2025-full-year-results-and-appendix-4e---for-asx(11279481).pdf",
+        "https://www.qbe.com/investor-relations/reports-presentations/annual-results"
+      ],
+      "announcedOn": "2026-02-20",
+      "kind": "annual_ordinary",
+      "basisKind": "reported",
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY25 interim ordinary",
+          "cashDps": 0.31,
+          "frankingFraction": 0.25,
+          "frankedCashDps": 0.0775,
+          "currency": "AUD"
+        },
+        {
+          "label": "FY25 final ordinary",
+          "cashDps": 0.78,
+          "frankingFraction": 0.3,
+          "frankedCashDps": 0.234,
+          "currency": "AUD"
+        }
+      ],
+      "calculation": {
+        "method": "Python Decimal; sum(cashDps * frankingFraction) / sum(cashDps), using exact franked cash amounts when disclosed",
+        "cashDps": "1.09",
+        "frankedCashDps": "0.3115",
+        "rateDecimal": "0.2857798165137614678899082568807339449541"
+      },
+      "evidence": "FY25 note 5.4 shows interim 31 Australian cents, Franking percentage 25%; final 78 Australian cents explicitly 30% franked. Appendix rounded interim franked amount 7.8c is rounded to one decimal: exact percentage implies 7.75c, not 7.8/31. Annual weighting uses explicit 25% and 30%, not the rounded amount.",
+      "reviewedOn": "2026-11-14"
+    },
+    "IAG.AX": {
+      "rate": 0.59375,
+      "periodEnd": "2026-06-30",
+      "sources": [
+        "https://www.iag.com.au/content/dam/corporate-iag/iag-aus/au/en/documents/report-and-results/iagl-appendix-4e-fy26-annual-report.pdf",
+        "https://www.iag.com.au/newsroom/company/iag-full-year-results-2026"
+      ],
+      "announcedOn": "2026-08-13",
+      "kind": "annual_ordinary",
+      "basisKind": "reported",
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY26 interim ordinary",
+          "cashDps": 0.12,
+          "frankingFraction": 0.25,
+          "frankedCashDps": 0.03,
+          "currency": "AUD"
+        },
+        {
+          "label": "FY26 final ordinary",
+          "cashDps": 0.2,
+          "frankingFraction": 0.8,
+          "frankedCashDps": 0.16,
+          "currency": "AUD"
+        }
+      ],
+      "calculation": {
+        "method": "Python Decimal; sum(cashDps * frankingFraction) / sum(cashDps), using exact franked cash amounts when disclosed",
+        "cashDps": "0.32",
+        "frankedCashDps": "0.1900",
+        "rateDecimal": "0.59375"
+      },
+      "evidence": "Note 4.4 identifies 2026 interim 12.0c at 25% and 2026 final not recognised at reporting date 20.0c at 80%. Prior FY25 final 19c appearing in dividends paid is excluded.",
+      "reviewedOn": "2026-11-14"
+    },
+    "TLS.AX": {
+      "rate": 0.9047619047619048,
+      "periodEnd": "2026-06-30",
+      "sources": [
+        "https://www.telstra.com.au/content/dam/tcom/about-us/investors/pdf-i/telstra-financial-results-and-annual-report-for-the-year-ended-30-jun-2026.pdf",
+        "https://www.telstra.com.au/aboutus/investors/dividends"
+      ],
+      "announcedOn": "2026-08-13",
+      "kind": "annual_ordinary",
+      "basisKind": "reported",
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY26 interim ordinary",
+          "cashDps": 0.105,
+          "frankingFraction": 0.9047619047619048,
+          "frankedCashDps": 0.095,
+          "currency": "AUD"
+        },
+        {
+          "label": "FY26 final ordinary",
+          "cashDps": 0.105,
+          "frankingFraction": 0.9047619047619048,
+          "frankedCashDps": 0.095,
+          "currency": "AUD"
+        }
+      ],
+      "calculation": {
+        "method": "Python Decimal; sum(cashDps * frankingFraction) / sum(cashDps), using exact franked cash amounts when disclosed",
+        "cashDps": "0.210",
+        "frankedCashDps": "0.190",
+        "rateDecimal": "0.9047619047619047619047619047619047619048"
+      },
+      "evidence": "Directors report gives each FY26 10.5c payment franked 9.5c and unfranked 1.0c, and annual 21c franked 19c/unfranked 2c. Exact amounts take precedence over rounded 90.5% / 90.48% prose.",
+      "reviewedOn": "2026-11-14"
+    },
+    "TPG.AX": {
+      "rate": 0.15,
+      "periodEnd": "2025-12-31",
+      "sources": [
+        "https://announcements.asx.com.au/asxpdf/20260227/pdf/06wv74pm9z2zb1.pdf",
+        "https://www.tpgtelecom.com.au/investor-relations/dividends"
+      ],
+      "announcedOn": "2026-02-27",
+      "kind": "annual_ordinary",
+      "basisKind": "reported",
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY25 interim ordinary dividend",
+          "cashDps": 0.09,
+          "frankingFraction": 0.0,
+          "frankedCashDps": 0.0,
+          "currency": "AUD"
+        },
+        {
+          "label": "FY25 final ordinary dividend",
+          "cashDps": 0.09,
+          "frankingFraction": 0.3,
+          "frankedCashDps": 0.027,
+          "currency": "AUD"
+        }
+      ],
+      "calculation": {
+        "method": "Python Decimal; sum(cashDps * frankingFraction) / sum(cashDps), using exact franked cash amounts when disclosed",
+        "cashDps": "0.18",
+        "frankedCashDps": "0.027",
+        "rateDecimal": "0.15"
+      },
+      "evidence": "Appendix 4E Dividend information: FY25 interim 9.0c franked percentage dash (nil), FY25 final 9.0c 30%; narrative explicitly final 30% franked. Excludes FY25 unfranked special 9c and $1.52 capital reduction.",
+      "reviewedOn": "2026-11-14"
+    },
+    "APA.AX": {
+      "rate": 0.2740103448275862,
+      "periodEnd": "2026-06-30",
+      "sources": [
+        "https://announcements.asx.com.au/asxpdf/20260820/pdf/072yyd659vhz4t.pdf",
+        "https://www.apa.com.au/news/asx-and-media-releases/interim-distribution-information-for-the-six-months-ended-31-december-2025",
+        "https://admin.apa.com.au/media/bvpcuxx2/260820_apa_asx_final_distribution_information.pdf"
+      ],
+      "announcedOn": "2026-08-20",
+      "kind": "annual_ordinary",
+      "basisKind": "reported",
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY26 interim distribution",
+          "cashDps": 0.275,
+          "frankingFraction": 0.22921818181818182,
+          "frankedCashDps": 0.063035,
+          "currency": "AUD"
+        },
+        {
+          "label": "FY26 final distribution",
+          "cashDps": 0.305,
+          "frankingFraction": 0.3143967213114754,
+          "frankedCashDps": 0.095891,
+          "currency": "AUD"
+        }
+      ],
+      "calculation": {
+        "method": "Python Decimal exact disclosed franked cash / total cash",
+        "cashDps": "0.580",
+        "frankedCashDps": "0.158926",
+        "rateDecimal": "0.2740103448275862068965517241379310344828"
+      },
+      "evidence": "Official interim tax information for six months ended 31 December 2025: Total Distribution Rate 27.5 cents; Franked Dividend 6.3035c; unfranked dividend 0.0000c, tax deferred 15.1154c, interest 1.0737c, tax deferred 5.0074c. Official final tax information for six months ended 30 June 2026: Total Distribution Rate 30.50 cents; Franked Dividend 9.5891c; unfranked dividend 0.0000c, tax deferred 15.2777c, interest 0.8910c, tax deferred 4.7422c. Each complete cash component table reconciles with Python Decimal. Annual cash-franked fraction is (6.3035+9.5891)/58; do not use rounded accounting profit 9.6c from results, do not treat whole distribution as fully franked, and do not replace tax-deferred components with assumed zero cash. This is franked cash / total ordinary cash distribution, not the percentage of corporate dividend component that is franked.",
+      "reviewedOn": "2026-11-14"
+    },
+    "TCL.AX": {
+      "rate": 0.0,
+      "periodEnd": "2026-06-30",
+      "sources": [
+        "https://www.transurban.com/content/dam/investor-centre/01/FY26-Appendix4E.pdf"
+      ],
+      "announcedOn": "2026-08-13",
+      "kind": "annual_ordinary",
+      "basisKind": "reported",
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY26 interim cash distribution",
+          "cashDps": 0.34,
+          "frankingFraction": 0.0,
+          "frankedCashDps": 0.0,
+          "currency": "AUD"
+        },
+        {
+          "label": "FY26 final cash distribution",
+          "cashDps": 0.35,
+          "frankingFraction": 0.0,
+          "frankedCashDps": 0.0,
+          "currency": "AUD"
+        }
+      ],
+      "calculation": {
+        "method": "Python Decimal; sum(cashDps * frankingFraction) / sum(cashDps), using exact franked cash amounts when disclosed",
+        "cashDps": "0.69",
+        "frankedCashDps": "0.00",
+        "rateDecimal": "0"
+      },
+      "evidence": "Note B9 explicitly lists current FY26 final 35c as Unfranked THT, Franked THL nil, and interim declared 3 December 2025 34c as Unfranked THT, Franked THL nil. Prior FY25 partly-franked 33c paid August 2025 is excluded. Zero is from both explicit current-period unfranked clauses, not a trust assumption.",
+      "reviewedOn": "2026-11-14"
+    },
+    "SCG.AX": {
+      "rate": null,
+      "periodEnd": "2025-12-31",
+      "sources": [
+        "https://announcements.asx.com.au/asxpdf/20260224/pdf/06wng9ld31xkp4.pdf"
+      ],
+      "announcedOn": "2026-02-24",
+      "kind": "annual_ordinary",
+      "basisKind": "reported",
+      "currency": "AUD",
+      "evidence": "Downloaded FY25 annual release establishes annual cash 17.72c but contains no franking clause or annual franked cash amount. Additional official 2025/2026 tax-guide search evidence describes fully franked company dividends AND franked trust distributions, so zero would be especially unsafe. No complete FY25 annual tax-component reconciliation obtained. Do not copy FY25 interim estimated 0% Appendix rate to the year.",
+      "reviewedOn": "2026-11-14"
+    },
+    "VCX.AX": {
+      "rate": null,
+      "periodEnd": "2026-06-30",
+      "sources": [
+        "https://announcements.asx.com.au/asxpdf/20260820/pdf/072zfqqvz6v346.pdf"
+      ],
+      "announcedOn": "2026-08-20",
+      "kind": "annual_ordinary",
+      "basisKind": "reported",
+      "currency": "AUD",
+      "evidence": "Downloaded FY26 results release establishes two 6.20c distributions but contains no franking clause. Search located annual report and secondary description of both unfranked; official annual PDF retrieval returned HTTP 403. Secondary description alone is not accepted as primary verified annual evidence; zero is not inferred from REIT status.",
+      "reviewedOn": "2026-11-14"
+    },
+    "GPT.AX": {
+      "rate": null,
+      "periodEnd": "2025-12-31",
+      "sources": [
+        "https://announcements.asx.com.au/asxpdf/20260216/pdf/06wb8dhtc3rdsk.pdf",
+        "https://www.gpt.com.au/sites/default/files/inline-uploads/Appendix%204E%20%5BGPT%5D%20-%202025%20Annual%20Result.pdf"
+      ],
+      "announcedOn": "2026-02-16",
+      "kind": "annual_ordinary",
+      "basisKind": "reported",
+      "currency": "AUD",
+      "evidence": "Downloaded annual release has no franking clause. Additionally retrieved official annual Appendix 4E explicitly shows only second-half 12c franked amount dash (nil), not both halves. First-half notice search result gives MIT income and no company dividend but is expressly not complete resident-tax evidence. Whole-year 24c franking remains unknown, not final-half rate extrapolated.",
+      "reviewedOn": "2026-11-14"
+    },
+    "DXS.AX": {
+      "rate": null,
+      "periodEnd": "2026-06-30",
+      "sources": [
+        "https://announcements.asx.com.au/asxpdf/20260820/pdf/072z59cnjxkn0m.pdf",
+        "https://cdn-api.markitdigital.com/apiman-gateway/ASX/asx-research/1.0/file/2924-03128320-2A1693244"
+      ],
+      "announcedOn": "2026-08-20",
+      "kind": "annual_ordinary",
+      "basisKind": "reported",
+      "currency": "AUD",
+      "evidence": "Downloaded FY26 Appendix 4E has a Franked distribution amount per security dash row near record date 30 Jun 2026/payment 28 Aug 2026. This may refer to final distribution only; no explicit both-half or full-year unfranked clause was located. Conservatively unresolved for annual 19.3c plus 17.7c, rather than assuming annual zero.",
+      "reviewedOn": "2026-11-14"
+    },
+    "AFI.AX": {
+      "rate": 1.0,
+      "periodEnd": "2027-06-30",
+      "sources": [
+        "https://announcements.asx.com.au/asxpdf/20261001/pdf/074stxwrt91g7j.pdf"
+      ],
+      "announcedOn": "2026-10-01",
+      "kind": "annual_ordinary",
+      "basisKind": "guidance",
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY27 ordinary quarterly dividend, November 2026 payment",
+          "cashDps": 0.0675,
+          "frankingFraction": 1.0,
+          "frankedCashDps": 0.0675,
+          "currency": "AUD"
+        },
+        {
+          "label": "FY27 ordinary quarterly guidance, February 2027 payment",
+          "cashDps": 0.0675,
+          "frankingFraction": 1.0,
+          "frankedCashDps": 0.0675,
+          "currency": "AUD"
+        },
+        {
+          "label": "FY27 ordinary quarterly guidance, May 2027 payment",
+          "cashDps": 0.0675,
+          "frankingFraction": 1.0,
+          "frankedCashDps": 0.0675,
+          "currency": "AUD"
+        },
+        {
+          "label": "FY27 ordinary quarterly guidance, August 2027 payment",
+          "cashDps": 0.0675,
+          "frankingFraction": 1.0,
+          "frankedCashDps": 0.0675,
+          "currency": "AUD"
+        }
+      ],
+      "calculation": {
+        "method": "Python Decimal; sum(cashDps * frankingFraction) / sum(cashDps), using exact franked cash amounts when disclosed",
+        "cashDps": "0.2700",
+        "frankedCashDps": "0.2700",
+        "rateDecimal": "1"
+      },
+      "evidence": "FY27 guidance explicitly says ordinary 27c fully franked and schedule footnote All dividends are fully franked. Four ordinary 6.75c guidance components only; special 10c excluded. Conditional on no material unforeseen adverse market conditions and final Board approval; remaining payments are guidance, not declared guarantees.",
+      "reviewedOn": "2026-11-14"
+    },
+    "BHP.AX": {
+      "rate": 1.0,
+      "periodEnd": "2026-06-30",
+      "sources": [
+        "https://announcements.asx.com.au/asxpdf/20260818/pdf/072vxpfhmy9lfk.pdf"
+      ],
+      "announcedOn": "2026-08-18",
+      "kind": "annual_ordinary",
+      "basisKind": "reported",
+      "currency": "USD",
+      "components": [
+        {
+          "label": "FY26 interim",
+          "cashDps": 0.73,
+          "frankingFraction": 1.0,
+          "frankedCashDps": 0.73,
+          "currency": "USD"
+        },
+        {
+          "label": "FY26 final",
+          "cashDps": 0.99,
+          "frankingFraction": 1.0,
+          "frankedCashDps": 0.99,
+          "currency": "USD"
+        }
+      ],
+      "calculation": {
+        "method": "Python Decimal; sum(cashDps * frankingFraction) / sum(cashDps), using exact franked cash amounts when disclosed",
+        "cashDps": "1.72",
+        "frankedCashDps": "1.72",
+        "rateDecimal": "1"
+      },
+      "evidence": "Appendix 4E explicitly current-period interim US73c fully franked and final US99c fully franked. Annual report also says US$1.72 per share fully franked. Both components are in USD so no FX assumption is needed for their equal rate.",
+      "reviewedOn": "2026-11-14"
+    },
+    "RIO.AX": {
+      "rate": null,
+      "periodEnd": "2025-12-31",
+      "sources": [
+        "https://www.riotinto.com/invest/shareholder-information/dividends/dividend-history-and-calculator",
+        "https://www.riotinto.com/-/media/content/documents/invest/financial-news-and-performance/results/2025/2025-annual-results.pdf",
+        "https://www.riotinto.com/en/news/releases/2026/rio-tinto-solid-results-underpinned-by-8-cueq-production-and-sharper-cost-discipline",
+        "https://www.riotinto.com/-/media/content/documents/invest/financial-news-and-performance/results/2025/2025-half-year-results.pdf"
+      ],
+      "announcedOn": "2026-02-19",
+      "kind": "annual_ordinary",
+      "basisKind": "reported",
+      "currency": "AUD",
+      "evidence": "Downloaded dividend history establishes the FY25 AUD payments but contains no franking clause. Additionally retrieved official FY25 annual results explicitly says the 2025 final ordinary dividend to Rio Tinto Limited shareholders will be fully franked. Retrieved official 2025 half-year results text has no franking clause. Final 100% and prospective policy are not silently applied to FY25 interim; annual rate remains unknown.",
+      "reviewedOn": "2026-11-14"
+    },
+    "FMG.AX": {
+      "rate": 1.0,
+      "periodEnd": "2026-06-30",
+      "sources": [
+        "https://content.fortescue.com/fortescue17114-fortescueeb60-productionbbdb-8be5/media/project/fortescueportal/shared/documents/regulatory/asx-announcements/automated/03123292-fy26-full-year-results.pdf",
+        "https://content.fortescue.com/fortescue17114-fortescueeb60-productionbbdb-8be5/media/project/fortescueportal/shared/documents/regulatory/transcripts/fmg_fyr_200826_transcript---fortescue.pdf"
+      ],
+      "announcedOn": "2026-08-20",
+      "kind": "annual_ordinary",
+      "basisKind": "reported",
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY26 interim",
+          "cashDps": 0.62,
+          "frankingFraction": 1.0,
+          "frankedCashDps": 0.62,
+          "currency": "AUD"
+        },
+        {
+          "label": "FY26 final",
+          "cashDps": 0.46,
+          "frankingFraction": 1.0,
+          "frankedCashDps": 0.46,
+          "currency": "AUD"
+        }
+      ],
+      "calculation": {
+        "method": "Python Decimal; sum(cashDps * frankingFraction) / sum(cashDps), using exact franked cash amounts when disclosed",
+        "cashDps": "1.08",
+        "frankedCashDps": "1.08",
+        "rateDecimal": "1"
+      },
+      "evidence": "Results headline explicitly says fully franked FY26 dividends of A$1.08 per share, covering both interim A$0.62 and final A$0.46, not just final-rate extrapolation.",
+      "reviewedOn": "2026-11-14"
+    },
+    "WDS.AX": {
+      "rate": 1.0,
+      "periodEnd": "2025-12-31",
+      "sources": [
+        "https://www.woodside.com/docs/default-source/investor-documents/major-reports-%28static-pdfs%29/2025-annual-report/annual-report-2025.pdf",
+        "https://www.woodside.com/investors/dividend-information"
+      ],
+      "announcedOn": "2026-02-24",
+      "kind": "annual_ordinary",
+      "basisKind": "reported",
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY25 interim",
+          "cashDps": 0.81817901,
+          "frankingFraction": 1.0,
+          "frankedCashDps": 0.81817901,
+          "currency": "AUD"
+        },
+        {
+          "label": "FY25 final",
+          "cashDps": 0.83491354,
+          "frankingFraction": 1.0,
+          "frankedCashDps": 0.83491354,
+          "currency": "AUD"
+        }
+      ],
+      "calculation": {
+        "method": "Python Decimal; sum(cashDps * frankingFraction) / sum(cashDps), using exact franked cash amounts when disclosed",
+        "cashDps": "1.65309255",
+        "frankedCashDps": "1.65309255",
+        "rateDecimal": "1"
+      },
+      "evidence": "FY25 Appendix 4E lists ordinary final US59c with franked amount US59c, interim US53c with franked amount US53c. Directors report table independently marks both fully franked. These are the same fiscal payments as recorded AUD equivalents.",
+      "reviewedOn": "2026-11-14"
+    },
+    "ARG.AX": {
+      "rate": 1.0,
+      "periodEnd": "2026-06-30",
+      "sources": [
+        "https://argoinvestments.com.au/wp-content/uploads/Media-release-ARG-FY26-FINAL.pdf"
+      ],
+      "announcedOn": "2026-08-05",
+      "kind": "annual_ordinary",
+      "basisKind": "reported",
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY26 interim",
+          "cashDps": 0.185,
+          "frankingFraction": 1.0,
+          "frankedCashDps": 0.185,
+          "currency": "AUD"
+        },
+        {
+          "label": "FY26 final",
+          "cashDps": 0.2,
+          "frankingFraction": 1.0,
+          "frankedCashDps": 0.2,
+          "currency": "AUD"
+        }
+      ],
+      "calculation": {
+        "method": "Python Decimal; sum(cashDps * frankingFraction) / sum(cashDps), using exact franked cash amounts when disclosed",
+        "cashDps": "0.385",
+        "frankedCashDps": "0.385",
+        "rateDecimal": "1"
+      },
+      "evidence": "FY26 results explicitly say final 20c plus interim 18.5c reaches full-year 38.5c fully franked. LIC capital-gain component is tax character within final, not extra special.",
+      "reviewedOn": "2026-11-14"
+    },
+    "AGL.AX": {
+      "rate": 1.0,
+      "periodEnd": "2026-06-30",
+      "sources": [
+        "https://www.agl.com.au/content/dam/digital/agl/documents/about-agl/news-centre/2026/260812-fy26-results-announcement-and-fy27-guidance.pdf",
+        "https://www.agl.com.au/content/dam/digital/agl/documents/about-agl/investors/2026/260812-2026-annual-report.pdf",
+        "https://www.agl.com.au/content/dam/digital/agl/documents/about-agl/news-centre/2026/260812-appendix-3a-1-notification-of-dividend-distribution.pdf"
+      ],
+      "announcedOn": "2026-08-12",
+      "kind": "annual_ordinary",
+      "basisKind": "reported",
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY26 interim",
+          "cashDps": 0.24,
+          "frankingFraction": 1.0,
+          "frankedCashDps": 0.24,
+          "currency": "AUD"
+        },
+        {
+          "label": "FY26 final",
+          "cashDps": 0.26,
+          "frankingFraction": 1.0,
+          "frankedCashDps": 0.26,
+          "currency": "AUD"
+        }
+      ],
+      "calculation": {
+        "method": "Python Decimal; sum(cashDps * frankingFraction) / sum(cashDps), using exact franked cash amounts when disclosed",
+        "cashDps": "0.50",
+        "frankedCashDps": "0.50",
+        "rateDecimal": "1"
+      },
+      "evidence": "FY26 release explicitly identifies full annual 50c fully franked, not only final 26c; annual record interim 24c plus final 26c.",
+      "reviewedOn": "2026-11-14"
+    },
+    "ORG.AX": {
+      "rate": 1.0,
+      "periodEnd": "2026-06-30",
+      "sources": [
+        "https://announcements.asx.com.au/asxpdf/20260813/pdf/072pz092rkcqv0.pdf"
+      ],
+      "announcedOn": "2026-08-13",
+      "kind": "annual_ordinary",
+      "basisKind": "reported",
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY26 ordinary annual dividend (reported aggregate)",
+          "cashDps": 0.6,
+          "frankingFraction": 1.0,
+          "frankedCashDps": 0.6,
+          "currency": "AUD"
+        }
+      ],
+      "calculation": {
+        "method": "Python Decimal; sum(cashDps * frankingFraction) / sum(cashDps), using exact franked cash amounts when disclosed",
+        "cashDps": "0.6",
+        "frankedCashDps": "0.6",
+        "rateDecimal": "1"
+      },
+      "evidence": "Official release explicitly calls total FY26 60c fully franked, alongside fully franked final 30c. Annual aggregate basis retained without inventing a split.",
+      "reviewedOn": "2026-11-14"
+    },
+    "COL.AX": {
+      "rate": 1.0,
+      "periodEnd": "2026-06-28",
+      "sources": [
+        "https://www.colesgroup.com.au/DownloadFile.axd?file=%2FReport%2FComNews%2F20260825%2F03125402.pdf",
+        "https://www.colesgroup.com.au/FormBuilder/_Resource/_module/ir5sKeTxxEOndzdh00hWJw/file/Annual_Report.pdf"
+      ],
+      "announcedOn": "2026-08-25",
+      "kind": "annual_ordinary",
+      "basisKind": "reported",
+      "currency": "AUD",
+      "components": [
+        {
+          "label": "FY26 interim",
+          "cashDps": 0.41,
+          "frankingFraction": 1.0,
+          "frankedCashDps": 0.41,
+          "currency": "AUD"
+        },
+        {
+          "label": "FY26 final",
+          "cashDps": 0.37,
+          "frankingFraction": 1.0,
+          "frankedCashDps": 0.37,
+          "currency": "AUD"
+        }
+      ],
+      "calculation": {
+        "method": "Python Decimal; sum(cashDps * frankingFraction) / sum(cashDps), using exact franked cash amounts when disclosed",
+        "cashDps": "0.78",
+        "frankedCashDps": "0.78",
+        "rateDecimal": "1"
+      },
+      "evidence": "Official FY26 release highlights Total dividends 78 cps +13.0% fully-franked, covering same 52 weeks to 28 June 2026. Recorded components 41c plus 37c.",
+      "reviewedOn": "2026-11-14"
+    }
+  }
+}

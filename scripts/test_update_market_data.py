@@ -7,17 +7,137 @@ import tempfile
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from update_market_data import summarize_chart, update_market_data
+from update_market_data import summarize_chart, update_market_data, apply_disclosure_update, fetch_chart
+
+
+class FetchChartTests(unittest.TestCase):
+    def payload(self, ticker='NAB.AX'):
+        return {'chart': {'result': [{'meta': {
+            'symbol': ticker, 'regularMarketPrice': 40.1, 'regularMarketTime': 1794524400,
+            'currency': 'AUD', 'gmtoffset': 39600}, 'timestamp': [1794524400],
+            'indicators': {'quote': [{'close': [40.1], 'high': [40.5], 'low': [39.9], 'volume': [1000]}]}}],
+            'error': None}}
+
+    def malformed_payloads(self):
+        cases = [None, {}, {'chart': {'result': []}}, {'chart': {'result': [None]}}]
+        for field, value in (('regularMarketPrice', None), ('regularMarketPrice', True),
+                             ('regularMarketTime', '1794524400')):
+            payload = self.payload()
+            payload['chart']['result'][0]['meta'][field] = value
+            cases.append(payload)
+        for fields in ({'timestamp': 'not-an-array'}, {'indicators': {'quote': [None]}},
+                       {'indicators': {'quote': [{'close': []}]}}):
+            payload = self.payload()
+            payload['chart']['result'][0].update(fields)
+            cases.append(payload)
+        payload = self.payload()
+        payload['chart']['error'] = {'code': 'Bad Request'}
+        cases.append(payload)
+        return cases
+
+    def test_malformed_cache_payloads_refetch_instead_of_hit_or_crash(self):
+        import io
+        for index, payload in enumerate(self.malformed_payloads()):
+            with self.subTest(case=index), tempfile.TemporaryDirectory() as tmp:
+                cache = Path(tmp) / 'charts/NAB.AX.json'
+                cache.parent.mkdir()
+                cache.write_text(json.dumps({'retrievedAt': datetime.now(timezone.utc).isoformat(),
+                                             'payload': payload}), encoding='utf-8')
+                with patch('update_market_data.CACHE_DIR', Path(tmp)), \
+                        patch('update_market_data.time.sleep'), \
+                        patch('update_market_data.urllib.request.urlopen',
+                              return_value=io.StringIO(json.dumps(self.payload()))) as request:
+                    self.assertEqual(fetch_chart('NAB.AX'), self.payload())
+                    request.assert_called_once()
+                self.assertEqual(json.loads(cache.read_text())['payload'], self.payload())
+
+    def test_malformed_downloads_are_not_cached_or_returned(self):
+        import io
+        for index, payload in enumerate(self.malformed_payloads()):
+            with self.subTest(case=index), tempfile.TemporaryDirectory() as tmp:
+                with patch('update_market_data.CACHE_DIR', Path(tmp)), \
+                        patch('update_market_data.time.sleep'), \
+                        patch('update_market_data.urllib.request.urlopen',
+                              side_effect=lambda *a, **k: io.StringIO(json.dumps(payload))):
+                    with self.assertRaises(ValueError):
+                        fetch_chart('NAB.AX')
+                self.assertFalse((Path(tmp) / 'charts/NAB.AX.json').exists())
+
+    def test_wrong_cached_symbol_is_refetched_and_replaced(self):
+        import io
+        with tempfile.TemporaryDirectory() as tmp:
+            cache = Path(tmp) / 'charts/NAB.AX.json'
+            cache.parent.mkdir()
+            cache.write_text(json.dumps({'retrievedAt': datetime.now(timezone.utc).isoformat(),
+                                         'payload': self.payload('BHP.AX')}), encoding='utf-8')
+            with patch('update_market_data.CACHE_DIR', Path(tmp)), \
+                    patch('update_market_data.time.sleep'), \
+                    patch('update_market_data.urllib.request.urlopen',
+                          return_value=io.StringIO(json.dumps(self.payload()))) as request:
+                self.assertEqual(fetch_chart('NAB.AX'), self.payload())
+                request.assert_called_once()
+            self.assertEqual(json.loads(cache.read_text())['payload'], self.payload())
+
+    def test_valid_cached_equity_and_fx_have_exact_requested_identity(self):
+        from urllib.parse import quote
+        for ticker in ('NAB.AX', 'AUD=X'):
+            with self.subTest(ticker=ticker), tempfile.TemporaryDirectory() as tmp:
+                cache = Path(tmp) / 'charts' / (quote(ticker, safe='') + '.json')
+                cache.parent.mkdir()
+                cache.write_text(json.dumps({'retrievedAt': datetime.now(timezone.utc).isoformat(),
+                                             'payload': self.payload(ticker)}), encoding='utf-8')
+                with patch('update_market_data.CACHE_DIR', Path(tmp)), \
+                        patch('update_market_data.urllib.request.urlopen') as request:
+                    self.assertEqual(fetch_chart(ticker), self.payload(ticker))
+                    request.assert_not_called()
+
+    def test_download_requires_explicit_requested_symbol(self):
+        import io
+        for symbol in ('BHP.AX', None):
+            with self.subTest(symbol=symbol), tempfile.TemporaryDirectory() as tmp:
+                payload = self.payload()
+                if symbol is None:
+                    del payload['chart']['result'][0]['meta']['symbol']
+                else:
+                    payload['chart']['result'][0]['meta']['symbol'] = symbol
+                with patch('update_market_data.CACHE_DIR', Path(tmp)), \
+                        patch('update_market_data.time.sleep'), \
+                        patch('update_market_data.urllib.request.urlopen',
+                              side_effect=lambda *a, **k: io.StringIO(json.dumps(payload))):
+                    with self.assertRaises(ValueError):
+                        fetch_chart('NAB.AX')
+                self.assertFalse((Path(tmp) / 'charts/NAB.AX.json').exists())
 
 
 class SummarizeChartTests(unittest.TestCase):
+    def test_new_relevant_or_failed_poll_invalidates_old_annual_and_tax_basis(self):
+        market = {'dividendBasis': {'status': 'verified', 'annualDpsAud': 2.0},
+                  'annualOrdinaryCashDps': 2.0, 'franking': {'status': 'verified', 'rate': 1}}
+        for status in ('needs_review', 'unavailable'):
+            result = apply_disclosure_update(market.copy(), {'status': status, 'checkedAt': '2026-11-14T01:00:00Z'})
+            self.assertIsNone(result['annualOrdinaryCashDps'])
+            self.assertIsNone(result['dividendBasis']['annualDpsAud'])
+            self.assertNotEqual(result['dividendBasis']['status'], 'verified')
+            self.assertEqual(result['franking']['status'], 'unknown')
+
+    def test_summarize_includes_historical_screening_and_explicit_unknown_franking(self):
+        payload = {'chart': {'result': [{'meta': {'regularMarketPrice': 10, 'regularMarketTime': 1794524400}}]}}
+        result = summarize_chart(payload, now=datetime(2026, 11, 14, tzinfo=timezone.utc))
+        self.assertIn('annualCashDividends', result['screening'])
+        self.assertEqual(result['franking']['status'], 'unknown')
+
     def test_refresh_uses_all_disclosures_and_shared_currency_quote_without_payment_count(self):
         payload = lambda ticker: {'chart': {'result': [{
             'meta': {'regularMarketPrice': 1.5 if ticker == 'AUD=X' else 10,
                      'regularMarketTime': 1794524400, 'currency': 'AUD', 'gmtoffset': 39600},
         }]}}
+        core = [{**s, 'isProxyHolding': True, 'isCore': True} for s in
+                json.loads((Path(__file__).resolve().parents[1] / 'data/stock-universe.json').read_text())]
+        updates = {s['ticker']: {'status': 'current', 'checkedAt': '2026-11-14T00:00:00Z'} for s in core}
         with tempfile.TemporaryDirectory() as tmp, patch('update_market_data.OUTPUT_PATH', Path(tmp) / 'market.json'), \
-                patch('update_market_data.fetch_chart', side_effect=payload):
+                patch('update_market_data.fetch_chart', side_effect=payload), \
+                patch('update_market_data.fetch_vas_universe', return_value=(core, {'kind': 'vas_proxy', 'holdingCount': 25})), \
+                patch('update_market_data.get_disclosure_updates', return_value=(updates, {'complete': True})):
             count, failures = update_market_data(now=datetime(2026, 11, 14, tzinfo=timezone.utc))
             output = json.loads((Path(tmp) / 'market.json').read_text())
         self.assertEqual(count, 25)

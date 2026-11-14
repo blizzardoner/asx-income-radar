@@ -34,6 +34,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Restore announcement identities and short-lived chart cache
+        if: github.event_name != 'pull_request'
+        uses: actions/cache@v4
+        with:
+          path: .cache/asx-income-radar
+          key: asx-sources-v2-${{ github.run_id }}
+          restore-keys: asx-sources-v2-
+
       - name: Refresh ASX market data
         if: github.event_name != 'pull_request'
         run: python scripts/update_market_data.py

@@ -2,6 +2,8 @@ import React from 'react'
 import { createRoot } from 'react-dom/client'
 import App, { type MarketData, type UniverseStock } from './App'
 import universe from '../data/stock-universe.json'
+import { selectUniverse } from './domain/bootstrapData'
+import DataErrorBoundary from './DataErrorBoundary'
 
 async function bootstrap() {
   const root = createRoot(document.getElementById('root')!)
@@ -11,7 +13,9 @@ async function bootstrap() {
     const marketData = await response.json() as MarketData
     root.render(
       <React.StrictMode>
-        <App initialUniverse={universe as UniverseStock[]} initialMarketData={marketData} />
+        <DataErrorBoundary>
+          <App initialUniverse={selectUniverse(marketData, universe as UniverseStock[])} initialMarketData={marketData} />
+        </DataErrorBoundary>
       </React.StrictMode>,
     )
   } catch (error) {

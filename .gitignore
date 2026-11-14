@@ -13,3 +13,4 @@ mobile-preview*.png
 desktop-preview*.png
 .DS_Store
 Thumbs.db
+.cache/
