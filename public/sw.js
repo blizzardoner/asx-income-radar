@@ -1,4 +1,4 @@
-const CACHE = 'asx-income-radar-v3'
+const CACHE = 'asx-income-radar-v4-proxy-screener'
 const SHELL = ['./', './index.html', './manifest.webmanifest', './data/market.json', './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png']
 
 self.addEventListener('install', (event) => {
